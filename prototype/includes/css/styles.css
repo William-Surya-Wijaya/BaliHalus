@@ -265,7 +265,6 @@ body{
 
 .col >.content-context{
   margin: 0 0 0.3em 0;
-  text-align: justify;
 }
 
 .main-page-content:nth-child(odd) > .row:first-child {
@@ -274,4 +273,8 @@ body{
 
 .main-page-content:nth-child(odd) > .row:first-child > .col{
   width: 30%;
+}
+
+.main-page-content:nth-child(odd) > .row:first-child > .col > .content-context{
+  text-align: justify;
 }
