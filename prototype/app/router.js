@@ -10,8 +10,26 @@ export const router = async (request, response) =>{
     response.setHeader('Content-Type', 'text/html');
     response.end(content);
   }
-  else if(request.url == "/requestcss"){
-    const css = await fs.readFile('./includes/css/styles.css', 'utf-8');
+  else if(request.url == "/sign-in"){
+    const content = await fs.readFile('./pages/signin.html', 'utf-8');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/html');
+    response.end(content);
+  }
+  else if(request.url == "/signincss"){
+    const css = await fs.readFile('./includes/css/signin.css', 'utf-8');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/css');
+    response.end(css);
+  }
+  else if(request.url == "/sign-image"){
+    const image = await fs.readFile('./includes/images/sign-image.jpg');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'image');
+    response.end(image);
+  }
+  else if(request.url == "/indexcss"){
+    const css = await fs.readFile('./includes/css/index.css', 'utf-8');
     response.statusCode = 200;
     response.setHeader('Content-Type', 'text/css');
     response.end(css);

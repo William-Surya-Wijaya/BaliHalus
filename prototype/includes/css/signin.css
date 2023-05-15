@@ -1,0 +1,160 @@
+*{
+  margin: 0; padding: 0;
+}
+
+body{
+  background-color: #dbddcf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-page{
+  border-radius: 25px;
+  overflow-y: auto;
+  width: 88%;
+  height: 86%;
+  padding: 1%;
+  background-color: #f9faf4;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.sign-image{
+  background: url(/sign-image);
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 40%;
+  border-radius: 25px;
+}
+
+.sign-box{
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+}
+
+.sign-banner{
+  background-color: #1b2e1a;
+  height: 100%;
+  width: 5em;
+  align-self: flex-end;
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+.container{
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.title{
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.bold{
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.col{
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+  margin: 0.5em 0;
+}
+
+.form-label{
+  color: #1b2e1a;
+}
+
+.form-field{
+  outline: 1px solid #aebbad;
+  border: 0;
+  border-radius: 9px;
+  background-color: transparent;
+  height: 2.5em;
+  width: 600px;
+  padding: 0.5em;
+  font-size: 1em;
+  transition: 0.25s ease-in-out;
+  color: #395237;
+}
+
+.form-field:hover{
+  background-color: #dbddcf;
+  outline-offset: 4px;
+  transition: 0.25s ease-in-out;
+  font-weight: bold;
+}
+
+.form-field:focus{
+  outline: 2px solid #aebbad;
+  outline-offset: 4px;
+  font-weight: bold;
+}
+
+.button-group{
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1em;
+}
+
+.button-primary{
+  background-color: #1b2e1a;
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 0.6em 2em;
+  border-radius: 9px;
+  height: 2.6em;
+  width: 8em;
+}
+
+.button-secondary{
+  background-color: transparent;
+  border: 1px solid rgba(179, 184, 164, 0.3);
+  color: rgba(139, 146, 115, 0.9);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  border-radius: 9px;
+  transition: all 0.5s ease-in-out;
+  padding: 0.6em 2em;
+  height: 2.6em;
+  width: 8em;
+}
+
+.button-secondary:hover{
+  background-color: rgba(205, 208, 194, 0.9);
+  color: #1b2e1a
+}
+
+.container > .row:first-child{
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 2em;
+}
