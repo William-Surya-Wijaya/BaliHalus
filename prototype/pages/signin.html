@@ -1,47 +1,140 @@
 <link rel="stylesheet" href="/signincss" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <html>
   <body>
-    <div class="sign-page">
-      <div class="sign-image"></div>
-      <div class="sign-box">
-        <div class="container">
-          <div class="row">
-            <i class="fa fa-compress bold" aria-hidden="true" style="margin-right:0.5em;"></i>BaliHalus
-          </div>
-          <div class="row">
-            <div class="title">SIGN IN</div>
-          </div>
-          <div class="row">
-            <div class="form-group">
-              <label class="form-label">Name</label>
-              <input type="text" class="form-field" />
+    <div class="card">
+      <div class="header-image"><i class="fa fa-compress bold" aria-hidden="true"></i>BaliHalus</div>
+      <div class="header">SIGN UP</div>
+      <div class="content">
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <div class="row">
+              <input id="name" class="input max" placeholder="Fill with your full name" autocomplete="off" />
+              <select id="gender" class="input fit">
+                <option value="" hidden selected>Pick</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
             </div>
+            
           </div>
           <div class="form-group">
             <label class="form-label">Username</label>
-            <input type="text" class="form-field" />
+            <input id="username" class="input max" placeholder="Fill your username (min 8 characters)" autocomplete="off" />
           </div>
           <div class="form-group">
             <label class="form-label">Password</label>
-            <input type="password" class="form-field" />
+            <div class="row">
+              <input id="password" type="password" placeholder="Fill your password" class="input max" style="margin-bottom: 0.5em;" />
+              <input id="passwordver" type="password" placeholder="Verify your password" class="input max" autocomplete="off" />
+            </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Phone</label>
-            <input type="text" class="form-field" />
+            <label class="form-label">Phone Number</label>
+            <input id="phone" class="input max" placeholder="Fill your phone number" autocomplete="off" />
           </div>
           <div class="form-group">
             <label class="form-label">E-Mail</label>
-            <input type="text" class="form-field" />
-          </div>
-          <div class="button-group">
-            <button class="button-primary">Submit</button>
-            <button class="button-secondary">Reset</button>
+            <input id="email" class="input max" placeholder="Fill your email" autocomplete="off" />
           </div>
         </div>
+        <div class="account" id="donthave">Already have an account ?</div>
+        <div class="button-group">
+          <button id="submit" class="button primary">Submit</button>
+          <button onclick="javascript:location.href='/';" class="button secondary">Cancel</button>
+        </div>
       </div>
-      <div class="sign-banner"></div>
     </div>
   </body>
 </html>
+
+<script>
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const submitButton = document.getElementById('submit');
+
+    submitButton.addEventListener('click',()=>{
+      let validation = "";
+
+      const form = {
+        name : document.getElementById('name').value,
+        gender : document.getElementById('gender').value,
+        username : document.getElementById('username').value,
+        password : document.getElementById('password').value,
+        passwordver : document.getElementById('passwordver').value,
+        phone : document.getElementById('phone').value,
+        email : document.getElementById('email').value
+      }
+
+      if(form.name == null || form.name == ""){validation = "Please fill your name !"}
+      else if(form.gender == null || form.gender == ""){validation = "Please pick your gender !"}
+      else if(form.username == null || form.username == ""){validation = "Please fill your username !"}
+      else if(form.password == null || form.password == ""){validation = "Please fill your password !"}
+      else if(form.passwordver == null || form.passwordver == "" || form.passwordver != form.password){validation = "Your password didnt match, Please check your password !"}
+      else if(form.phone == null || form.phone == ""){validation = "Please fill your phone number !"}
+      else if(form.email == null || form.email == ""){validation = "Please pick your email address !"}
+
+      if(validation == ""){
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Make sure your data is right!",
+          icon: 'warning',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes !'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: 'Saved !',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Thank you for sign up.',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true
+            }).then(()=>{
+              location.href="/signed";
+            });
+          }
+        });
+      }
+      else{
+        Swal.fire({
+          title: 'Check Your Data',
+          text: validation,
+          icon: 'error',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'Ok'
+        });
+      }
+    });
+
+    const donthave = document.getElementById('donthave');
+    donthave.addEventListener('click', (event)=>{
+      Swal.fire({
+        title: 'Have an account ?',
+        text: "You can log in to your previous account!",
+        icon: 'question',
+        background: "#f9faf4",
+        color: '#1b2e1a',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok, Log In !'
+      }).then((result)=>{
+        if(result.isConfirmed){
+          location.href = "/log-in";
+        }
+      });
+    });
+  });
+</script>

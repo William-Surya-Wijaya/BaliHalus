@@ -4,13 +4,13 @@
 
 <html>
   <body>
-    <div class="main-page">
+    <div id="page" class="main-page">
 
       <div class="main-page-header">
         <div class="nav-bar">
           <div class="nav-item"><i class="fa fa-home bold" aria-hidden="true"></i>Home</div>
           <div class="nav-item"><i class="fa fa-compress bold" aria-hidden="true"></i>BaliHalus</div>
-          <div class="nav-item"><div class="dark-button" id="signin1">Sign In</div></div>
+          <div class="nav-item"><div class="dark-button" id="logout"><i class="fa fa-user" aria-hidden="true" style="margin-right: 1em;"></i>William</div></div>
         </div>
 
         <div class="nav-content">
@@ -19,7 +19,7 @@
               <div class="nav-title">Get some relaxation from the expert.</div>
               <div class="nav-context">Discover the ultimate escape from the stresses of everyday life. Our spa is a sanctuary of tranquility, designed to help you relax, rejuvenate, and renew your mind, body, and spirit.</div>
               <div class="row">
-                <div class="dark-button" id="signin2">Sign In</div>
+                <div class="dark-button" id="gotobook">Book Now</div>
               </div>
               <div class="row" style="column-gap: 4em; margin-top: 3em;">
                 <div class="col">
@@ -42,7 +42,7 @@
         </div>
       </div>
 
-      <div class="main-page-content">
+      <div class="main-page-content" id="book-section">
         <div class="row" style="display: none;">
           <div class="trans-button">Spa & Scrub</div>
           <div class="trans-button">Body Massage</div>
@@ -56,7 +56,7 @@
           </div>
           <div class="row">
 
-            <div class="menu-card" id="spascrub">
+            <div class="menu-card">
               <div class="menu-card-header" style="background-image: url('/nav-subheader-image')"><div class="menu-card-header-content">Book Now</div></div>
               <div class="menu-card-body">
                 <div class="menu-card-title">Spa & Scrub</div>
@@ -64,7 +64,7 @@
               </div>
             </div>
 
-            <div class="menu-card" id="massage">
+            <div class="menu-card">
               <div class="menu-card-header" style="background-image: url('/nav-subheader-image')"><div class="menu-card-header-content">Book Now</div></div>
               <div class="menu-card-body">
                 <div class="menu-card-title">Body Massage</div>
@@ -72,7 +72,7 @@
               </div>
             </div>
 
-            <div class="menu-card" id="refleksi">
+            <div class="menu-card">
               <div class="menu-card-header" style="background-image: url('/nav-subheader-image')"><div class="menu-card-header-content">Book Now</div></div>
               <div class="menu-card-body">
                 <div class="menu-card-title">Refleksi</div>
@@ -119,6 +119,68 @@
             </div>
           </div>
 
+          <!-- <div class="sign-container">
+
+            <div class="row">
+              <div class="col">
+                <div class="content-title">Sign Up</div>
+                <div class="content-context">We keep your data private.</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group">
+                <div class="form-label">Name</div>
+                <div class="form-field"><input class="input-field" type="text"/></div>
+              </div>
+              <div class="form-group">
+                <div class="form-label">Gender</div>
+                <div class="form-field"><select class="input-field">
+                  <option value="" selected hidden>Pick</option>
+                  <option value="1">Male</option>
+                  <option value="0">Female</option>
+                </select></div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <div class="form-label">Username</div>
+                  <div class="form-field"><input class="input-field"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <div class="form-label">Password</div>
+                  <div class="form-field"><input class="input-field" type="password"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <div class="form-label">Phone</div>
+                  <div class="form-field"><input class="input-field"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <div class="form-label">E-Mail</div>
+                  <div class="form-field"><input class="input-field"></div>
+                </div>
+              </div>
+            </div>
+
+          </div> -->
+
         </div>
         <div class="footer">
         </div>
@@ -129,65 +191,60 @@
 </html>
 
 <script>
-  const signin1 = document.getElementById('signin1');
-  const signin2 = document.getElementById('signin2');
+  const gotobook = document.getElementById('gotobook');
+  const page = document.getElementById('page');
 
-  signin1.addEventListener('click', ()=>{
-    location.href = '/sign-in';
+  gotobook.addEventListener('click', ()=>{
+    const yOffset = 120;
+    const targetElement = document.querySelector('#book-section');
+    const targetOffsetTop = targetElement.offsetTop;
+    const scrollToY = targetOffsetTop - yOffset;
+
+    page.scrollTo({ top: scrollToY, behavior: "smooth" });
   });
 
-  signin2.addEventListener('click', ()=>{
-    location.href = '/sign-in';
-  });
-
-  const spa = document.getElementById('spascrub');
-  const massage = document.getElementById('massgae');
-  const refleksi = document.getElementById('relfeksi');
-
-  const alerts = [spa, massage, refleksi];
-  alerts.forEach((alert) => {
-    alert.addEventListener('click', (event)=>{
-      Swal.fire({
-        title: 'You are not Logged In.',
-        text: "You need to be logged in to book services!",
-        icon: 'warning',
-        background: "#f9faf4",
-        color: '#1b2e1a',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ok, Log In !'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: 'Directing',
-            icon: 'success',
-            color: '#1b2e1a',
-            text: 'You will be directed to log in page.',
-            showConfirmButton: false,
-            showCancelButton: true,
-            cancelButtonText: "Cancel",
-            cancelButtonColor: "#d33",
-            timer: 3000,
-            timerProgressBar: true
-          }).then((result)=>{
-            if(result.dismiss === Swal.DismissReason.cancel){
-              Swal.fire({
-                title: 'Cancelled',
-                icon: 'success',
-                color: '#1b2e1a',
-                text: 'Directing cancelled.',
-                showConfirmButton: false,
-                timer: 1500,
-                timerProgressBar: true
-              })
-            }
-            else{
-              location.href="/log-in";
-            }
-          });
-        }
-      })
+  const profile = document.getElementById('logout');
+  profile.addEventListener('click', (event)=>{
+    Swal.fire({
+      title: 'Log Out?',
+      text: "Are you sure want to log out from this account ?",
+      icon: 'warning',
+      background: "#f9faf4",
+      color: '#1b2e1a',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes !'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Logging Out',
+          icon: 'success',
+          color: '#1b2e1a',
+          text: 'Logging Out from your account.',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: "Cancel",
+          cancelButtonColor: "#d33",
+          timer: 3000,
+          timerProgressBar: true
+        }).then((result)=>{
+          if(result.dismiss === Swal.DismissReason.cancel){
+            Swal.fire({
+              title: 'Cancelled',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Logging Out Cancelled.',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true
+            })
+          }
+          else{
+            location.href="/";
+          }
+        });
+      }
     });
   });
 </script>

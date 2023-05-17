@@ -51,15 +51,19 @@ body{
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 85%;
+  width: 90%;
   height: 3em;
-  padding: 1.5em 2.6em 1em 2.6em;
+  padding: 1.5em 0em 1em 0em;
   border-radius: 25px;
   font-size: 16px;
   border-bottom: 1px solid #e4e6db;
   position: fixed;
   z-index:2;
   background-color: #f9faf4;
+}
+
+.nav-item{
+  margin:0 7em;
 }
 
 .nav-content > .row{
@@ -101,8 +105,8 @@ body{
   background: url(/nav-subheader-image);
   align-self: center;
   background-size: cover;
-  height: 30%;
-  width: 12em;
+  height: 33%;
+  width: 14em;
   border-radius: 16px;
   transform: translate(220%, -20%);
 }
@@ -264,6 +268,8 @@ body{
   justify-content: center;
   align-items: center;
   margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-page-content:nth-child(odd) > .row{
@@ -279,21 +285,121 @@ body{
 }
 
 .col > .content-title{
-  margin: 0 0 0.4em 0;
+  margin: 0.4em 0 0 0;
 }
 
 .col >.content-context{
   margin: 0 0 0.3em 0;
 }
 
-.main-page-content:nth-child(odd) > .row:first-child {
+.footer{
+  width: 85%;
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
-.main-page-content:nth-child(odd) > .row:first-child > .col{
+.footer > .col {
   width: 30%;
 }
 
 .main-page-content:nth-child(odd) > .row:first-child > .col > .content-context{
   text-align: justify;
+}
+
+.sign-container{
+  padding: 1em;
+  width:29%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-container > .row{
+  justify-content: space-around;
+  column-gap: 2em;
+}
+
+.sign-container > .row > .col{
+  width: 100%;
+}
+
+.col-50{
+  width: 50%;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+  margin: 0.5em 0;
+  width: 100%;
+}
+
+.form-label{
+  color: #335730;
+}
+
+.sign-container > .row:first-child{
+  margin-bottom: 1em;
+}
+
+.form-field{
+  outline: 1px solid #aebbad;
+  border: 0;
+  border-radius: 9px;
+  background-color: transparent;
+  height: 1.2em;
+  width: 100%;
+  padding: 0.5em;
+  font-size: 1em;
+  transition: 0.25s ease-in-out;
+  color: #395237;
+}
+
+.form-field:hover{
+  background-color: #dbddcf;
+  outline-offset: 4px;
+  transition: 0.25s ease-in-out;
+  font-weight: bold;
+}
+
+.form-field:focus{
+  outline: 2px solid #aebbad;
+  outline-offset: 4px;
+  font-weight: bold;
+}
+
+.input-field{
+  color: #395237;
+  background-color: transparent;
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.input-field:hover{
+  font-weight: bold;
+}
+
+.input-field:focus{
+  outline: none;
+}
+
+.sign-image{
+  background: url(/sign-image);
+  background-size: cover;
+  background-position: center;
+  height: 450px;
+  width: 700px;
+  border-radius: 25px;
+  margin-left: 2em;
+}
+
+.main-page-content > .row{
+  justify-content: space-between;
+  align-items: center;
+}
+
+.col > .content-context{
+  margin: 1em 0;
 }
