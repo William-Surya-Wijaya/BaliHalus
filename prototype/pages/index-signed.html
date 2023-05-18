@@ -44,7 +44,7 @@
 
       <div class="main-page-content" id="book-section">
         <div class="row" style="display: none;">
-          <div class="trans-button">Spa & Scrub</div>
+          <div class="trans-button">Spa</div>
           <div class="trans-button">Body Massage</div>
           <div class="trans-button">Refleksi</div>
         </div>
@@ -56,24 +56,24 @@
           </div>
           <div class="row">
 
-            <div class="menu-card">
-              <div class="menu-card-header" style="background-image: url('/nav-subheader-image')"><div class="menu-card-header-content">Book Now</div></div>
+            <div class="menu-card" id="spa-book">
+              <div class="menu-card-header" style="background-image: url('/spa-image')"><div class="menu-card-header-content">Book Now</div></div>
               <div class="menu-card-body">
-                <div class="menu-card-title">Spa & Scrub</div>
+                <div class="menu-card-title">Spa</div>
                 <div class="menu-card-context">BaliHalus</div>
               </div>
             </div>
 
-            <div class="menu-card">
-              <div class="menu-card-header" style="background-image: url('/nav-subheader-image')"><div class="menu-card-header-content">Book Now</div></div>
+            <div class="menu-card" id="massage-book">
+              <div class="menu-card-header" style="background-image: url('/massage-image')"><div class="menu-card-header-content">Book Now</div></div>
               <div class="menu-card-body">
                 <div class="menu-card-title">Body Massage</div>
                 <div class="menu-card-context">BaliHalus</div>
               </div>
             </div>
 
-            <div class="menu-card">
-              <div class="menu-card-header" style="background-image: url('/nav-subheader-image')"><div class="menu-card-header-content">Book Now</div></div>
+            <div class="menu-card"  id="refleksi-book">
+              <div class="menu-card-header" style="background-image: url('/refleksi-image')"><div class="menu-card-header-content">Book Now</div></div>
               <div class="menu-card-body">
                 <div class="menu-card-title">Refleksi</div>
                 <div class="menu-card-context">BaliHalus</div>
@@ -201,6 +201,20 @@
     const scrollToY = targetOffsetTop - yOffset;
 
     page.scrollTo({ top: scrollToY, behavior: "smooth" });
+  });
+
+  const spabook = document.getElementById('spa-book');
+  const massagebook = document.getElementById('massage-book');
+  const refleksibook = document.getElementById('refleksi-book');
+
+  spabook.addEventListener("click", (event)=>{
+    location.href="/book-spa";
+  });
+  massagebook.addEventListener("click", (event)=>{
+    location.href="/book-massage";
+  });
+  refleksibook.addEventListener("click", (event)=>{
+    location.href="/book-refleksi";
   });
 
   const profile = document.getElementById('logout');

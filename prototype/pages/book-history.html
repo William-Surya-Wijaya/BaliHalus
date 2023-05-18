@@ -1,0 +1,225 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" href="/historycss" />
+
+<html>
+  <body>
+    <div id="page" class="main-page">
+
+      <div class="main-page-header">
+        <div class="nav-bar">
+          <div class="nav-item"><i class="fa fa-home bold" aria-hidden="true"></i>History</div>
+          <div class="nav-item"><i class="fa fa-compress bold" aria-hidden="true"></i>BaliHalus</div>
+          <div class="nav-item"><div class="dark-button" id="logout"><i class="fa fa-user" aria-hidden="true" style="margin-right: 1em;"></i>William</div></div>
+        </div>
+
+        <div class="nav-content">
+          <div class="row" style="width:100% !important;">
+            <div class="col" style="width:100% !important; margin-bottom: 0 !important;">
+              <div class="nav-title">Reservation History.</div>
+              <div class="nav-context">All of yours reservation history will be displayed here.</div>
+              <div style="display:flex; width:100% !important; justify-content:center !important;">
+                <table id="historyTable">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Book ID</th>
+                      <th>Service</th>
+                      <th>Room</th>
+                      <th>Branch</th>
+                      <th>Reservation Time</th>
+                      <th>Print</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>BDG230205023</td>
+                      <td>Body Massage</td>
+                      <td>BM01</td>
+                      <td>Jalan Ciumbuleuit No.49, Cidadap, Bandung, Jawa Barat</td>
+                      <td>05 Feb 2023 09:00 AM</td>
+                      <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>BDG230307001</td>
+                      <td>Spa</td>
+                      <td>SP01</td>
+                      <td>Jalan Ciumbuleuit No.49, Cidadap, Bandung, Jawa Barat</td>
+                      <td>07 March 2023 09:00 AM</td>
+                      <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>BDG230405014</td>
+                      <td>Body Massage</td>
+                      <td>BM11</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
+                      <td>05 Apr 2023 11:00 AM</td>
+                      <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>BDG230405015</td>
+                      <td>Reflection</td>
+                      <td>RF16</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
+                      <td>05 Apr 2023 12:00 AM</td>
+                      <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>BDG230418008</td>
+                      <td>Reflection</td>
+                      <td>RF16</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
+                      <td>18 Apr 2023 13:00 PM</td>
+                      <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>BDG230509008</td>
+                      <td>Spa</td>
+                      <td>SP03</td>
+                      <td>Jalan Ciumbuleuit No.49, Cidadap, Bandung, Jawa Barat</td>
+                      <td>09 May 2023 13:00 PM</td>
+                      <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>BDG230527008</td>
+                      <td>Spa</td>
+                      <td>SPA16</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
+                      <td>27 May 2023 09:00 AM</td>
+                      <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>BDG230604008</td>
+                      <td>Spa</td>
+                      <td>SP06</td>
+                      <td>Jalan Ciumbuleuit No.49, Cidadap, Bandung, Jawa Barat</td>
+                      <td>04 Jun 2023 10:00 AM</td>
+                      <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
+                    </tr>
+                    <tr>
+                      <td>9</td>
+                      <td>BDG230710005</td>
+                      <td>Body Massage</td>
+                      <td>BM12</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
+                      <td>10 Jul 2023 11:00 AM</td>
+                      <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
+                    </tr>
+                    <tr>
+                      <td>10</td>
+                      <td>BDG230823010</td>
+                      <td>Body Massage</td>
+                      <td>BM13</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
+                      <td>23 Aug 2023 14:00 PM</td>
+                      <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-page-content" id="book-section">
+      </div>
+
+    </div>
+  </body>
+</html>
+
+<script>
+  $('#historyTable').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "pageLength": 5,
+    scrollX: true,
+    fixedColumns: {
+      left: 2,
+      right: 1
+    },
+    "drawCallback": function(settings) {
+      $('#historyTable').find('td').addClass('noWrap');
+      $('#historyTable').find('td:nth-child(1)').addClass('textRight');
+    }
+  });
+
+  const spabook = document.getElementById('spa-book');
+  const massagebook = document.getElementById('massage-book');
+  const refleksibook = document.getElementById('refleksi-book');
+
+  spabook.addEventListener("click", (event)=>{
+    location.href="/book-spa";
+  });
+  massagebook.addEventListener("click", (event)=>{
+    location.href="/book-massage";
+  });
+  refleksibook.addEventListener("click", (event)=>{
+    location.href="/book-refleksi";
+  });
+
+  const profile = document.getElementById('logout');
+  profile.addEventListener('click', (event)=>{
+    Swal.fire({
+      title: 'Log Out?',
+      text: "Are you sure want to log out from this account ?",
+      icon: 'warning',
+      background: "#f9faf4",
+      color: '#1b2e1a',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes !'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Logging Out',
+          icon: 'success',
+          color: '#1b2e1a',
+          text: 'Logging Out from your account.',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: "Cancel",
+          cancelButtonColor: "#d33",
+          timer: 3000,
+          timerProgressBar: true
+        }).then((result)=>{
+          if(result.dismiss === Swal.DismissReason.cancel){
+            Swal.fire({
+              title: 'Cancelled',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Logging Out Cancelled.',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true
+            })
+          }
+          else{
+            location.href="/";
+          }
+        });
+      }
+    });
+  });
+</script>

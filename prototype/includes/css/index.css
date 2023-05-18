@@ -93,6 +93,7 @@ body{
   background: url(/nav-header-image);
   align-self: center;
   background-size: cover;
+  background-position: center;
   height: 60%;
   width: 100%;
   border-radius: 20px;
@@ -214,6 +215,10 @@ body{
   border-radius: 25px;
   width: 220px !important;
   height: 280px;
+}
+
+.menu-card:hover{
+  cursor: pointer;
 }
 
 .menu-card-header-content{
