@@ -1,0 +1,68 @@
+3 of 9 Barcode Font for Windows
+===============================
+
+Installing the Font
+-------------------
+
+Installation in Microsoft Windows 3.1 is easy. In Program manager, select and 
+open the Main program group the double-click on the COntrol Panel Icon. In
+Control Panel, double-click on the Fonts icon to open the Fonts dialog. Click
+on the Add... button, then select the "3 of 9 Barcode (True Type)" item in the
+list of fonts. Depending upon where you originally installed the font file, you
+may need to use the Dirctories list to select the correct directory in order
+for it to appear in the list. Then click on the OK button and the font will be
+installed.
+
+
+Adding Barcodes to a Document
+-----------------------------
+
+In yourword processor, type in the contents of the barcode with a leading and
+trailing asterisk ('*') character. For example, the barcode 71043-1643 would be 
+entered as:
+
+                              *71043-1643*
+
+Now select the entire text of the barcode and select the "3 of 9 Barcode" font;
+the exact sequence required to do this is dependant upon the word processor. In 
+Write, for example, choose Character|Fonts... and then select the font in the 
+Font list displayed. The text will now change into a barcode on the screen, and
+will be printed the same way.
+
+
+
+Macintosh Version
+-----------------
+
+The Apple Macintosh version of this font is a System 7 TrueType font supplied
+in MacBinary format.
+
+
+Copyright
+---------
+
+This font is Copyright 1993, by Paul Andre LeBlanc.
+
+You are free to distribute this font to anyone you wish, under the following
+conditions:
+
+1) You may not charge a fee for this font. You may, however, charge a 
+   reasonable for any media required to distribute the font. This file must
+   be included when distributing the font.
+
+2) This font may not be distributed with commercial and/or shareware 
+   applications without the prior written consent of the author.
+
+
+Comments
+--------
+
+And and all comments are welcome. The author may be contacted as follows:
+
+Compuserve: Paul Andre LeBlanc 71043,1643
+
+Mail:       Paul Andre LeBlanc
+            565 Sherbourne St., #1216
+            Toronto, Ont.
+            CANADA
+            M4X 1E7

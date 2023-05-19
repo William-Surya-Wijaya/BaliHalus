@@ -112,6 +112,12 @@ export const router = async (request, response) =>{
     response.setHeader('Content-Type', 'text/html');
     response.end(content);
   }
+  else if(request.url == "/39barcode"){
+    const content = await fs.readFile('./includes/font/3of9_barcode/3OF9_NEW.ttf');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'font');
+    response.end(content);
+  }
   else{
     response.statusCode = 404;
     response.setHeader('Content-Type', 'text/plain');

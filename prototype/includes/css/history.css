@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "39Barcode";
+  src: url(/39barcode);
+}
+
 *{
   margin: 0; padding: 0;
 }
@@ -53,6 +58,7 @@ input{
   background-color: transparent;
   border: 1px solid rgba(205, 208, 194, 0.7) !important;
   font-family: inherit !important;
+  font-size: 1em;
 }
 
 input:focus{
@@ -226,10 +232,70 @@ table *{
   font-size: 1.2em;
 }
 
+.reservation-card{
+  border-radius: 9px;
+  border: 2px solid #adb196;
+  height: 32em;
+  width: 20em;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+  justify-content: space-between;
+  padding-bottom: 2em;
+  zoom: 0.9;
+}
+
+.res-header{
+  width: 100%;
+  font-weight: bold;
+  text-align: center;
+  color: #395237;
+}
+
+.res-branch{
+  width: 100%;
+  font-weight: bold;
+  text-align: center;
+  font-size: 2em;
+  color: #395237;
+}
+
+.res-location{
+  width: 100%;
+  text-align: center;
+  color: #395237;
+  font-size: 0.9em;
+}
+
+.res-detail{ 
+  width: 95%;
+  border: 1px solid black;
+  border-radius: 4px;
+  align-self: center;
+}
+
+.res-detail tr:not(:last-child){
+  border-bottom: 1px solid black !important;
+}
+
+.res-detail td:first-child{
+  font-weight: bold;
+  width: 30%;
+}
+
 .bold{
   font-weight: bold;
   font-size: 1.5em;
   margin-right: 0.5em; 
+}
+
+.res-barcode{
+  font-family: '39Barcode';
+  width: 100%;
+  font-size: 2.8em;
+  transform: scaleY(1.5);
+  text-align: center;
+  margin-top: 0.5em;
 }
 
 .dark-button{
@@ -520,11 +586,11 @@ table *{
 .input{
   border: 2px solid #dbddcf;
   border-radius: 9px;
-  width: 250px;
+  width: 100%;
   height: 100%;
   background-color: transparent;
   padding: 0.5em 0.5em;
-  font-size: 1em;
+  font-size: 0.9em;
   color: #395237;
 }
 

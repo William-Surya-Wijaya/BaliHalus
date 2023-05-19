@@ -468,6 +468,7 @@ body{
 
 .select2-dropdown{
   border: 2px solid #dbddcf !important;
+  border-radius: 9px !important;
 }
 
 .row{
