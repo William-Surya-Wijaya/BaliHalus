@@ -77,6 +77,10 @@ table *{
   border: 0 !important;
 }
 
+.table-title{
+  font-weight: bold;
+}
+
 .paginate_button {
   border-radius: 9px !important;
   transition: all 0.25s ease-in-out;

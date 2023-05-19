@@ -161,21 +161,29 @@
     "drawCallback": function(settings) {
       $('#historyTable').find('td').addClass('noWrap');
       $('#historyTable').find('td:nth-child(1)').addClass('textRight');
+      $('#historyTable').find('td:nth-child(1)').addClass('table-title');
+    },
+    language: {
+      "sSortAscending": '<i class="fa fa-sort-up" aria-hidden="true"></i>',
+      "sSortDescending": '<i class="fa fa-sort-down" aria-hidden="true"></i>'
     }
   });
 
-  const spabook = document.getElementById('spa-book');
-  const massagebook = document.getElementById('massage-book');
-  const refleksibook = document.getElementById('refleksi-book');
-
-  spabook.addEventListener("click", (event)=>{
-    location.href="/book-spa";
-  });
-  massagebook.addEventListener("click", (event)=>{
-    location.href="/book-massage";
-  });
-  refleksibook.addEventListener("click", (event)=>{
-    location.href="/book-refleksi";
+  const printsButton = document.querySelectorAll('.printButton');
+  printsButton.forEach((button)=>{
+    button.addEventListener("click", (event)=>{
+      Swal.fire({
+        title: 'Print reservation ticket ?',
+        text: "Are you sure want to print this reservation ticket ?",
+        icon: 'question',
+        background: "#f9faf4",
+        color: '#1b2e1a',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes !'
+      })
+    });
   });
 
   const profile = document.getElementById('logout');
