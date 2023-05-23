@@ -441,6 +441,10 @@ body{
   justify-content: space-between;
 }
 
+.paddingTable{
+  padding: 0.86em 0 !important;
+}
+
 .datefilter-container{
   display: flex;
   flex-direction: row;

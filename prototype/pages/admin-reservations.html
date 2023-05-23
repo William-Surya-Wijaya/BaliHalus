@@ -49,7 +49,7 @@
           <div class="content">
             <div class="page-nav-title" style="font-weight:bold !important; font-size: 2em; margin-bottom: 1em;">Reservation Data</div>
 
-            <div style="min-height: 27em !important; min-width: 80% !important;">
+            <div style="min-height: 35em !important; min-width: 80% !important;">
               <div class="datefilter-container">
                 <div class="datefilter-title">Period</div>
                 <input class="datefilter" type="text" id="min" />
@@ -188,6 +188,7 @@
     },
     "drawCallback": function(settings) {
       $('#historyTable').find('td').addClass('noWrap');
+      $('#historyTable').find('td').addClass('paddingTable');
       $('#historyTable').find('td:nth-child(1)').addClass('textRight');
       $('#historyTable').find('td:nth-child(1)').addClass('table-title');
     },
