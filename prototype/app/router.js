@@ -148,6 +148,12 @@ export const router = async (request, response) =>{
     response.setHeader('Content-Type', 'text/html');
     response.end(content);
   }
+  else if(request.url == "/admin-reservations"){
+    const content = await fs.readFile('./pages/admin-reservations.html', 'utf-8');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/html');
+    response.end(content);
+  }
   else if(request.url == "/admincss"){
     const content = await fs.readFile('./includes/css/admin.css', 'utf-8');
     response.statusCode = 200;

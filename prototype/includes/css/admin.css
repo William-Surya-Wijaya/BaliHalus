@@ -441,8 +441,55 @@ body{
   justify-content: space-between;
 }
 
+.datefilter-container{
+  display: flex;
+  flex-direction: row;
+  column-gap: 1em;
+  align-items: center;
+  justify-content: flex-start;
+  color: #f9faf4;
+}
+
+.ui-datepicker{
+  background-color: #f9faf4 !important;
+  padding: 9px !important;
+  border: 0 !important;
+  font-size: 0.9em;
+  color: #1b2e1a !important;
+}
+
+.ui-state-default{
+  background: none !important;
+  background-color: #d4e3d4 !important;
+  border-radius: 4px !important;
+  border: 1px solid #c3d4c2 !important;
+  transition: all 0.25s ease-in-out !important;
+}
+
+.ui-state-default:hover{
+  background-color: #c1d4c1 !important;
+}
+
+.ui-datepicker-header{
+  background: none;
+  background-color: #c3d4c2 !important;
+  border: 0 !important;
+  color: #1b2e1a !important;
+}
+
+.datefilter{
+  padding: 0.5em 1em;
+  font-size: 0.9em;
+  border-radius: 9px;
+}
+
+.datefilter-title{
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
 input{
-  color: #395237 !important;
+  color: #f9faf4 !important;
   background-color: #142213 !important;
   border: 0 !important;
   font-family: inherit !important;

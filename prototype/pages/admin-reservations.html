@@ -1,0 +1,267 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+<script src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.4.1/css/dataTables.dateTime.min.css" />
+
+
+<link rel="stylesheet" href="/admincss" />
+
+<html>
+  <body>
+    <div id="page" class="main-page">
+
+      <div class="left-nav">
+        <div class="left-title"><i class="fa fa-compress bold" aria-hidden="true"></i><div class="left-menu">BaliHalus</div></div>
+
+        <div class="left-items">
+          <button class="left-button" onclick="javascript:location.href= '/admin'"><i class="fa fa-home icon" aria-hidden="true"></i><div class="left-menu">Dashboard</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-users'"><i class="fa fa-users icon" aria-hidden="true"></i><div class="left-menu">Users</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-branch'"><i class="fa fa-building icon" aria-hidden="true"></i><div class="left-menu">Branch Store</div></button>
+          <button class="left-button left-button-selected" onclick="javascript:location.href= '/admin-reservations'"><i class="fa fa-shopping-bag icon" aria-hidden="true"></i><div class="left-menu">Reservation</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-services'"><i class="fa fa-archive icon" aria-hidden="true"></i><div class="left-menu">Variant</div></button>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="page-nav">
+          <div class="page-nav-title">Welcome, William Wijaya</div>
+          <div class="page-nav-account">
+            <i class="fa fa-user bold" aria-hidden="true"></i>
+            <div class="account-name">William Wijaya</div>
+            <button id="show-dropdown" class="button"><i class="fa fa-caret-down" aria-hidden="true"></i></button>
+          </div>
+          <div class="dropdown-container">
+            <button id="logout-action" class="dropdown-item">Log Out</button>
+          </div>
+        </div>
+
+        <div class="page-content">
+          <div class="content">
+            <div class="page-nav-title" style="font-weight:bold !important; font-size: 2em; margin-bottom: 1em;">Reservation Data</div>
+
+            <div style="min-height: 27em !important; min-width: 80% !important;">
+              <div class="datefilter-container">
+                <div class="datefilter-title">Period</div>
+                <input class="datefilter" type="text" id="min" />
+                <div class="datefilter-title">to</div>
+                <input class="datefilter" type="text" id="max" />
+                <div class="revenue-container">
+                  <input class="datefilter" type="text" id="revenue" />
+                </div>
+              </div>
+              
+              <table id="historyTable">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Book ID</th>
+                    <th>Service</th>
+                    <th>Room</th>
+                    <th>Branch</th>
+                    <th>Reservation Time</th>
+                    <th>Income</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>BDG230205023</td>
+                    <td>Body Massage</td>
+                    <td>BM01</td>
+                    <td>BaliHalus - Cicadap</td>
+                    <td>05 Feb 2023 09:00 AM</td>
+                    <td>50,000 IDR</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>BDG230307001</td>
+                    <td>Spa</td>
+                    <td>SP01</td>
+                    <td>BaliHalus - Cicadap</td>
+                    <td>07 Mar 2023 09:00 AM</td>
+                    <td>30,000 IDR</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>BDG230405014</td>
+                    <td>Body Massage</td>
+                    <td>BM11</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>05 Apr 2023 11:00 AM</td>
+                    <td>50,000 IDR</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>BDG230405015</td>
+                    <td>Reflection</td>
+                    <td>RF16</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>05 Apr 2023 12:00 AM</td>
+                    <td>25,000 IDR</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>BDG230418008</td>
+                    <td>Reflection</td>
+                    <td>RF16</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>18 Apr 2023 13:00 PM</td>
+                    <td>25,000 IDR</td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>BDG230509008</td>
+                    <td>Spa</td>
+                    <td>SP03</td>
+                    <td>BaliHalus - Cicadap</td>
+                    <td>09 May 2023 13:00 PM</td>
+                    <td>30,000 IDR</td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>BDG230527008</td>
+                    <td>Spa</td>
+                    <td>SPA16</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>27 May 2023 09:00 AM</td>
+                    <td>30,000 IDR</td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>BDG230604008</td>
+                    <td>Spa</td>
+                    <td>SP06</td>
+                    <td>BaliHalus - Cicadap</td>
+                    <td>04 Jun 2023 10:00 AM</td>
+                    <td>30,000 IDR</td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td>BDG230710005</td>
+                    <td>Body Massage</td>
+                    <td>BM12</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>10 Jul 2023 11:00 AM</td>
+                    <td>50,000 IDR</td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>BDG230823010</td>
+                    <td>Body Massage</td>
+                    <td>BM13</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>23 Aug 2023 14:00 PM</td>
+                    <td>50,000 IDR</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  const table = $('#historyTable').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "pageLength": 10,
+    scrollX: true,
+    fixedColumns: {
+      left: 2,
+      right: 1
+    },
+    "drawCallback": function(settings) {
+      $('#historyTable').find('td').addClass('noWrap');
+      $('#historyTable').find('td:nth-child(1)').addClass('textRight');
+      $('#historyTable').find('td:nth-child(1)').addClass('table-title');
+    },
+    "columnDefs": [
+      {
+        "targets": 6,
+        "width": "100px"
+      },
+      {
+        "targets": 0,
+        "width": "50px"
+      },
+      {
+        "targets": 0,
+        "data": null,
+        "orderable": false,
+        "className": "dt-center",
+        "render": function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      }
+    ]
+  });
+
+  var minDate, maxDate;
+
+  $("#min").datepicker({
+    dateFormat: "dd M yy",
+    onSelect: function (dateText, inst) {
+      minDate = moment(dateText, 'DD MMM YYYY');
+      table.draw();
+    }
+  });
+  
+  $("#max").datepicker({
+    dateFormat: "dd M yy",
+    onSelect: function (dateText, inst) {
+      maxDate = moment(dateText, 'DD MMM YYYY');
+      table.draw();
+    }
+  });
+
+  const revenueTotal = document.getElementById('revenue');
+
+  function formatNumberToIDR(number) {
+    const formattedNumber = new Intl.NumberFormat('en-US').format(number);
+    return formattedNumber + ' IDR';
+  }
+
+  function revenueCounting(){
+    const filteredData = table.rows({ filter: 'applied' }).data();
+    let totalRevenue = 0;
+
+    filteredData.each(function (value, index) {
+      const revenue = parseFloat(value[6].replace(/[^0-9.-]+/g, ''));
+      totalRevenue += revenue;
+    });
+
+    revenueTotal.value = formatNumberToIDR(totalRevenue);
+  }
+  
+  $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+      var reservationDate = moment(data[5], 'DD MMM YYYY hh:mm A');
+
+      console.log(minDate + " "+ reservationDate + " " + maxDate)
+
+      if ((minDate && reservationDate.isSameOrBefore(minDate)) || (maxDate && reservationDate.isSameOrAfter(maxDate))) {
+        return false;
+      }
+
+      return true;
+    }
+  );
+
+table.on('search.dt', revenueCounting);
+</script>
