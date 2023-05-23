@@ -552,3 +552,69 @@ body{
   background: none !important;
   background-color: #dbddcf !important;
 }
+
+.show-dropdown{
+  display: flex !important;
+  opacity: 100% !important;
+  z-index: 9;
+  transition: all 0.25s ease-in-out;
+}
+
+.dropdown-container{
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  z-index: 3;
+  padding: 0.5em;
+  display: none;
+  flex-direction: column;
+  row-gap: 0.5em;
+  border-radius: 9px;
+  background-color: transparent;
+  top: 80%;
+  left: 80%;
+  opacity: 0;
+  transition: all;
+}
+
+.xdsoft_datepicker{
+  width: 60% !important;
+}
+
+.xdsoft_datetimepicker .xdsoft_monthpicker *{
+  font-size: 1em !important;
+  color: #1b2e1a !important;
+}
+
+.xdsoft_datetimepicker .xdsoft_calendar *{
+  font-size: 0.96em !important;
+  color: #1b2e1a !important;
+}
+
+.xdsoft_datetimepicker .xdsoft_time_box  *{
+  font-size: 1em !important;
+  color: #1b2e1a !important;
+}
+
+.xdsoft_datetimepicker{
+  border: 2px solid #dbddcf !important;
+  width: 520px;
+  border-radius: 9px;
+  padding-left: 100px;
+}
+
+.dropdown-item{
+  width: 200px;
+  height: 30px;
+  border-radius: 9px;
+  background-color: #070709;
+  border: 0;
+  color: white;
+  font-size: 0.9em;
+  transition: all 0.25s ease-in-out;
+}
+
+.dropdown-item:hover{
+  background-color: #d4d8d4 !important;
+  color: #2e3f2e;
+}

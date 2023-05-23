@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/bookcss" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -9,15 +8,25 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-datetimepicker@latest/jquery.datetimepicker.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery-datetimepicker@latest/build/jquery.datetimepicker.full.min.js"></script>
+
+<link rel="stylesheet" href="/bookcss" />
+
 <html>
   <body>
     <div id="page" class="main-page">
 
       <div class="main-page-header">
         <div class="nav-bar">
-          <div class="nav-item"><i class="fa fa-home bold" aria-hidden="true"></i>Spa</div>
+          <div class="nav-item"><i class="fa fa-bath bold" aria-hidden="true"></i>Spa</div>
           <div class="nav-item"><i class="fa fa-compress bold" aria-hidden="true"></i>BaliHalus</div>
-          <div class="nav-item"><div class="dark-button" id="logout"><i class="fa fa-user" aria-hidden="true" style="margin-right: 1em;"></i>William</div></div>
+          <div id="show-dropdown" class="nav-item"><div class="dark-button" id="logout"><i class="fa fa-user" aria-hidden="true" style="margin-right: 1em;"></i>William<i class="fa fa-caret-down" aria-hidden="true" style="margin-left: 1em;"></i></div></div>
+          <div class="dropdown-container">
+            <button class="dropdown-item" onclick="javascript:location.href='/signed'"><i class="fa fa-home" aria-hidden="true" style="margin-right: 1em;"></i>home</button>
+            <button id="history-action" class="dropdown-item"><i class="fa fa-book" aria-hidden="true" style="margin-right: 1em;"></i>Reservations</button>
+            <button id="logout-action" class="dropdown-item"><i class="fa fa-sign-out" aria-hidden="true" style="margin-right: 1em;"></i>Log Out</button>
+          </div>
         </div>
 
         <div class="nav-content">
@@ -43,20 +52,7 @@
 
                 <div class="form-group">
                   <label class="form-label">Time</label>
-                  <select class="input max" id="time" type="text" placeholder="Select your booking time">
-                    <option></option>
-                    <option>08:00 AM</option>
-                    <option>09:00 AM</option>
-                    <option>10:00 AM</option>
-                    <option>11:00 AM</option>
-                    <option>12:00 PM</option>
-                    <option>13:00 PM</option>
-                    <option>14:00 PM</option>
-                    <option>15:00 PM</option>
-                    <option>16:00 PM</option>
-                    <option>17:00 PM</option>
-                    <option>18:00 PM</option>
-                  </select>
+                  <input class="input max" id="time" type="text" placeholder="Select your booking time" />
                 </div>
 
                 <div class="row">
@@ -136,8 +132,13 @@
     $("#scrub").select2({
       placeholder: "Select your mask variant"
     });
-    $('#time').select2({
-      placeholder: "Select book time"
+    $('#time').datetimepicker({
+      format: 'd M Y h:00 A',
+      step: 60,
+      placeholder: "Select book date and time",
+      defaultTime: '8:00 AM',
+      minTime: '9:00',
+      maxTime: '19:00',
     });
   });
 
@@ -209,5 +210,64 @@
       });
     }
     
+  });
+
+  
+  const showDropdown = document.getElementById('show-dropdown');
+  const dropdown = document.querySelector('.dropdown-container');
+
+  showDropdown.addEventListener('click', (event)=>{
+    dropdown.classList.toggle('show-dropdown');
+  });
+
+  const historyAction = document.getElementById('history-action');
+  historyAction.addEventListener("click", (event)=>{
+    location.href="/book-history";
+  });
+
+  const logoutAction = document.getElementById('logout-action');
+  logoutAction.addEventListener("click",(event)=>{
+
+    Swal.fire({
+      title: 'Log Out?',
+      text: "Are you sure want to log out from this account ?",
+      icon: 'warning',
+      background: "#f9faf4",
+      color: '#1b2e1a',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, log out !'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Logging Out',
+          icon: 'success',
+          color: '#1b2e1a',
+          text: 'Logging Out from your account.',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: "Cancel",
+          cancelButtonColor: "#d33",
+          timer: 3000,
+          timerProgressBar: true
+        }).then((result)=>{
+          if(result.dismiss === Swal.DismissReason.cancel){
+            Swal.fire({
+              title: 'Cancelled',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Logging Out Cancelled.',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true
+            })
+          }
+          else{
+            location.href="/log-in";
+          }
+        });
+      }
+    });
   });
 </script>

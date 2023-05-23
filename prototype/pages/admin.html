@@ -1,0 +1,336 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" href="/admincss" />
+
+<html>
+  <body>
+    <div id="page" class="main-page">
+
+      <div class="left-nav">
+        <div class="left-title"><i class="fa fa-compress bold" aria-hidden="true"></i><div class="left-menu">BaliHalus</div></div>
+
+        <div class="left-items">
+          <button class="left-button left-button-selected" onclick="javascript:location.href= '/admin'"><i class="fa fa-home icon" aria-hidden="true"></i><div class="left-menu">Dashboard</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-users'"><i class="fa fa-users icon" aria-hidden="true"></i><div class="left-menu">Users</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-branch'"><i class="fa fa-building icon" aria-hidden="true"></i><div class="left-menu">Branch Store</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-services'"><i class="fa fa-archive icon" aria-hidden="true"></i><div class="left-menu">Variant</div></button>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="page-nav">
+          <div class="page-nav-title">Welcome, William Wijaya</div>
+          <div class="page-nav-account">
+            <i class="fa fa-user bold" aria-hidden="true"></i>
+            <div class="account-name">William Wijaya</div>
+            <button id="show-dropdown" class="button"><i class="fa fa-caret-down" aria-hidden="true"></i></button>
+          </div>
+          <div class="dropdown-container">
+            <button id="logout-action" class="dropdown-item">Log Out</button>
+          </div>
+        </div>
+
+        <div class="page-content">
+          <div class="summary-container">
+
+            <div class="summary">
+              <div class="summary-header">
+                <div class="sum-header-icon"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></div>
+                <div class="sum-header-title">Grand Total Sales</div>
+              </div>
+              <div class="summary-body">
+                <div class="summary-total">60,000,000 IDR</div>
+              </div>
+              <div class="summary-footer">
+                <div class="summary-compare">Compared to 30M IDR</div>
+                <div class="summary-foot">+50%</div>
+              </div>
+            </div>
+
+            <div class="summary">
+              <div class="summary-header">
+                <div class="sum-header-icon"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></div>
+                <div class="sum-header-title">Total Spa</div>
+              </div>
+              <div class="summary-body">
+                <div class="summary-total">24,000,000 IDR</div>
+              </div>
+              <div class="summary-footer">
+                <div class="summary-compare">Compared to 20M IDR</div>
+                <div class="summary-foot">+12%</div>
+              </div>
+            </div>
+
+            <div class="summary">
+              <div class="summary-header">
+                <div class="sum-header-icon"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></div>
+                <div class="sum-header-title">Total Body Massage</div>
+              </div>
+              <div class="summary-body">
+                <div class="summary-total">20,000,000 IDR</div>
+              </div>
+              <div class="summary-footer">
+                <div class="summary-compare">Compared to 20M IDR</div>
+                <div class="summary-foot">0%</div>
+              </div>
+            </div>
+
+            <div class="summary">
+              <div class="summary-header">
+                <div class="sum-header-icon"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></div>
+                <div class="sum-header-title">Total Refleksi</div>
+              </div>
+              <div class="summary-body">
+                <div class="summary-total">16,000,000 IDR</div>
+              </div>
+              <div class="summary-footer">
+                <div class="summary-compare">Compared to 20M IDR</div>
+                <div class="summary-foot" style="background-color: #d77242 !important;">-12%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="favorite-container">
+              <div class="favorite">
+                <div class="summary-header">
+                  <div class="sum-header-icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                  <div class="sum-header-title">Spa</div>
+                </div>
+                <div class="summary-body">
+                  <div class="summary-total">30 Reservations</div>
+                </div>
+                <div class="summary-footer">
+                  <div class="summary-compare">Compared to 20</div>
+                  <div class="summary-foot">+50%</div>
+                </div>
+              </div>
+
+              <div class="favorite">
+                <div class="summary-header">
+                  <div class="sum-header-icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                  <div class="sum-header-title">Body Massage</div>
+                </div>
+                <div class="summary-body">
+                  <div class="summary-total">15 Reservations</div>
+                </div>
+                <div class="summary-footer">
+                  <div class="summary-compare">Compared to 15 IDR</div>
+                  <div class="summary-foot">0%</div>
+                </div>
+              </div>
+
+              <div class="favorite">
+                <div class="summary-header">
+                  <div class="sum-header-icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                  <div class="sum-header-title">Refleksi</div>
+                </div>
+                <div class="summary-body">
+                  <div class="summary-total">8 Reservations</div>
+                </div>
+                <div class="summary-footer">
+                  <div class="summary-compare">Compared to 6 IDR</div>
+                  <div class="summary-foot">+33%</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="min-height: 27em !important; min-width: 80% !important;">
+              <table id="historyTable">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Book ID</th>
+                    <th>Service</th>
+                    <th>Room</th>
+                    <th>Branch</th>
+                    <th>Reservation Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>BDG230205023</td>
+                    <td>Body Massage</td>
+                    <td>BM01</td>
+                    <td>BaliHalus - Cicadap</td>
+                    <td>05 Feb 2023 09:00 AM</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>BDG230307001</td>
+                    <td>Spa</td>
+                    <td>SP01</td>
+                    <td>BaliHalus - Cicadap</td>
+                    <td>07 Mar 2023 09:00 AM</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>BDG230405014</td>
+                    <td>Body Massage</td>
+                    <td>BM11</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>05 Apr 2023 11:00 AM</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>BDG230405015</td>
+                    <td>Reflection</td>
+                    <td>RF16</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>05 Apr 2023 12:00 AM</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>BDG230418008</td>
+                    <td>Reflection</td>
+                    <td>RF16</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>18 Apr 2023 13:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>BDG230509008</td>
+                    <td>Spa</td>
+                    <td>SP03</td>
+                    <td>BaliHalus - Cicadap</td>
+                    <td>09 May 2023 13:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>BDG230527008</td>
+                    <td>Spa</td>
+                    <td>SPA16</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>27 May 2023 09:00 AM</td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>BDG230604008</td>
+                    <td>Spa</td>
+                    <td>SP06</td>
+                    <td>BaliHalus - Cicadap</td>
+                    <td>04 Jun 2023 10:00 AM</td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td>BDG230710005</td>
+                    <td>Body Massage</td>
+                    <td>BM12</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>10 Jul 2023 11:00 AM</td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>BDG230823010</td>
+                    <td>Body Massage</td>
+                    <td>BM13</td>
+                    <td>BaliHalus - Citeureup</td>
+                    <td>23 Aug 2023 14:00 PM</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  const showDropdown = document.getElementById('show-dropdown');
+  const dropdown = document.querySelector('.dropdown-container');
+
+  showDropdown.addEventListener('click', (event)=>{
+    dropdown.classList.toggle('show-dropdown');
+  });
+
+  const logoutAction = document.getElementById('logout-action');
+  logoutAction.addEventListener("click",(event)=>{
+
+    Swal.fire({
+      title: 'Log Out?',
+      text: "Are you sure want to log out from this account ?",
+      icon: 'warning',
+      background: "#f9faf4",
+      color: '#1b2e1a',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, log out !'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Logging Out',
+          icon: 'success',
+          color: '#1b2e1a',
+          text: 'Logging Out from your account.',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: "Cancel",
+          cancelButtonColor: "#d33",
+          timer: 3000,
+          timerProgressBar: true
+        }).then((result)=>{
+          if(result.dismiss === Swal.DismissReason.cancel){
+            Swal.fire({
+              title: 'Cancelled',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Logging Out Cancelled.',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true
+            })
+          }
+          else{
+            location.href="/log-in";
+          }
+        });
+      }
+    });
+  });
+
+  $('#historyTable').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "pageLength": 10,
+    scrollX: true,
+    fixedColumns: {
+      left: 2,
+      right: 1
+    },
+    "drawCallback": function(settings) {
+      $('#historyTable').find('td').addClass('noWrap');
+      $('#historyTable').find('td:nth-child(1)').addClass('textRight');
+      $('#historyTable').find('td:nth-child(1)').addClass('table-title');
+    },
+    language: {
+      "sSortAscending": '<i class="fa fa-sort-up" aria-hidden="true"></i>',
+      "sSortDescending": '<i class="fa fa-sort-down" aria-hidden="true"></i>'
+    },
+    "columnDefs": [
+      {
+        "targets": 0,
+        "data": null,
+        "orderable": false,
+        "className": "dt-center",
+        "render": function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      }
+    ]
+  });
+</script>

@@ -16,17 +16,22 @@
 
       <div class="main-page-header">
         <div class="nav-bar">
-          <div class="nav-item"><i class="fa fa-home bold" aria-hidden="true"></i>History</div>
+          <div class="nav-item"><i class="fa fa-book bold" aria-hidden="true"></i>Reservations History</div>
           <div class="nav-item"><i class="fa fa-compress bold" aria-hidden="true"></i>BaliHalus</div>
-          <div class="nav-item"><div class="dark-button" id="logout"><i class="fa fa-user" aria-hidden="true" style="margin-right: 1em;"></i>William</div></div>
+          <div id="show-dropdown" class="nav-item"><div class="dark-button" id="logout"><i class="fa fa-user" aria-hidden="true" style="margin-right: 1em;"></i>William<i class="fa fa-caret-down" aria-hidden="true" style="margin-left: 1em;"></i></div></div>
+          <div class="dropdown-container">
+            <button class="dropdown-item" onclick="javascript:location.href='/signed'"><i class="fa fa-home" aria-hidden="true" style="margin-right: 1em;"></i>home</button>
+            <button id="history-action" class="dropdown-item"><i class="fa fa-book" aria-hidden="true" style="margin-right: 1em;"></i>Reservations</button>
+            <button id="logout-action" class="dropdown-item"><i class="fa fa-sign-out" aria-hidden="true" style="margin-right: 1em;"></i>Log Out</button>
+          </div>
         </div>
 
         <div class="nav-content">
           <div class="row">
             <div class="col">
-              <div class="nav-title">Reservation History.</div>
+              <div class="nav-title">Reservations History.</div>
               <div class="nav-context">All of yours reservation history will be displayed here.</div>
-              <div style="min-height: 27em !important;">
+              <div style="min-height: 27em !important; min-width: 80% !important;">
                 <table id="historyTable">
                   <thead>
                     <tr>
@@ -35,6 +40,7 @@
                       <th>Service</th>
                       <th>Room</th>
                       <th>Branch</th>
+                      <th>Location</th>
                       <th>Reservation Time</th>
                       <th>Print</th>
                     </tr>
@@ -46,6 +52,7 @@
                       <td>Body Massage</td>
                       <td>BM01</td>
                       <td>BaliHalus - Cicadap</td>
+                      <td>Jalan Ciumbuleuit No.49, Cidadap, Bandung, Jawa Barat</td>
                       <td>05 Feb 2023 09:00 AM</td>
                       <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
                     </tr>
@@ -55,6 +62,7 @@
                       <td>Spa</td>
                       <td>SP01</td>
                       <td>BaliHalus - Cicadap</td>
+                      <td>Jalan Ciumbuleuit No.49, Cidadap, Bandung, Jawa Barat</td>
                       <td>07 Mar 2023 09:00 AM</td>
                       <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
                     </tr>
@@ -64,6 +72,7 @@
                       <td>Body Massage</td>
                       <td>BM11</td>
                       <td>BaliHalus - Citeureup</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
                       <td>05 Apr 2023 11:00 AM</td>
                       <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
                     </tr>
@@ -73,6 +82,7 @@
                       <td>Reflection</td>
                       <td>RF16</td>
                       <td>BaliHalus - Citeureup</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
                       <td>05 Apr 2023 12:00 AM</td>
                       <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
                     </tr>
@@ -82,6 +92,7 @@
                       <td>Reflection</td>
                       <td>RF16</td>
                       <td>BaliHalus - Citeureup</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
                       <td>18 Apr 2023 13:00 PM</td>
                       <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
                     </tr>
@@ -91,6 +102,7 @@
                       <td>Spa</td>
                       <td>SP03</td>
                       <td>BaliHalus - Cicadap</td>
+                      <td>Jalan Ciumbuleuit No.49, Cidadap, Bandung, Jawa Barat</td>
                       <td>09 May 2023 13:00 PM</td>
                       <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
                     </tr>
@@ -100,6 +112,7 @@
                       <td>Spa</td>
                       <td>SPA16</td>
                       <td>BaliHalus - Citeureup</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
                       <td>27 May 2023 09:00 AM</td>
                       <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
                     </tr>
@@ -109,6 +122,7 @@
                       <td>Spa</td>
                       <td>SP06</td>
                       <td>BaliHalus - Cicadap</td>
+                      <td>Jalan Ciumbuleuit No.49, Cidadap, Bandung, Jawa Barat</td>
                       <td>04 Jun 2023 10:00 AM</td>
                       <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
                     </tr>
@@ -118,6 +132,7 @@
                       <td>Body Massage</td>
                       <td>BM12</td>
                       <td>BaliHalus - Citeureup</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
                       <td>10 Jul 2023 11:00 AM</td>
                       <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
                     </tr>
@@ -127,6 +142,7 @@
                       <td>Body Massage</td>
                       <td>BM13</td>
                       <td>BaliHalus - Citeureup</td>
+                      <td>Jalan Nusa Sari Utara II No.8, Citeureup, Cimahi, Jawa Barat</td>
                       <td>23 Aug 2023 14:00 PM</td>
                       <td><button class="printButton"><i class="fa fa-print bold" aria-hidden="true"></i>Print</button></td>
                     </tr>
@@ -136,27 +152,19 @@
             </div>
             <div class="col">
               <div class="reservation-card">
-                <div class="res-header">RESERVATION PASS</div>
+                <div class="res-header" id="resHeader">RESERVATION PASS</div>
                 <div class="col">
                   <div class="res-branch">BaliHalus</div>
-                  <div class="res-location">Jalan Ciumbuleuit No.49, Cidadap, Bandung, Jawa Barat</div>
+                  <div class="res-location" id="resLocation">Jalan Ciumbuleuit No.49, Cidadap, Bandung, Jawa Barat</div>
                 </div>
                 <div class="res-master">
                   <div class="form-group">
                     <div class="form-label">ID</div>
-                    <input class="input" value="BDG230205023" />
+                    <input class="input" id="resID" value="BDG230205023" />
                   </div>
                   <div class="form-group">
                     <div class="form-label">Reservation</div>
-                    <input class="input" value="SPA">
-                  </div>
-                  <div class="form-group">
-                    <div class="form-label">Mask</div>
-                    <input class="input" value="Milk">
-                  </div>
-                  <div class="form-group">
-                    <div class="form-label">Scrub</div>
-                    <input class="input" value="Milk">
+                    <input class="input" id="reservA" value="SPA">
                   </div>
                 </div>
                 <div class="res-barcode">BDG230205023</div>
@@ -187,6 +195,8 @@
       $('#historyTable').find('td').addClass('noWrap');
       $('#historyTable').find('td:nth-child(1)').addClass('textRight');
       $('#historyTable').find('td:nth-child(1)').addClass('table-title');
+      $('#historyTable').find('td:nth-child(6)').addClass('hidden-column');
+      $('#historyTable').find('th:nth-child(6)').addClass('hidden-column');
     },
     language: {
       "sSortAscending": '<i class="fa fa-sort-up" aria-hidden="true"></i>',
@@ -197,9 +207,25 @@
   const printsButton = document.querySelectorAll('.printButton');
   printsButton.forEach((button)=>{
     button.addEventListener("click", (event)=>{
+      const idTrans = event.target.parentNode.parentNode.children[1];
+      const reserv = event.target.parentNode.parentNode.children[2];
+      const ruang = event.target.parentNode.parentNode.children[3];
+      const branch = event.target.parentNode.parentNode.children[4];
+      const location = event.target.parentNode.parentNode.children[5];
+      const time = event.target.parentNode.parentNode.children[6];
+
+      const resHeader = document.getElementById('resHeader');
+      const resLocation = document.getElementById('resLocation');
+      const resID = document.getElementById('resID');
+      const reservA = document.getElementById('reservA');
+
+      resLocation.innerHTML = location.innerHTML;
+      resID.value = idTrans.innerHTML;
+      reservA.value = reserv.innerHTML;
+
       Swal.fire({
-        title: 'Print reservation ticket ?',
-        text: "Are you sure want to print this reservation ticket ?",
+        title: 'Print reservation pass ?',
+        text: "Are you sure want to print this reservation pass ?",
         icon: 'question',
         background: "#f9faf4",
         color: '#1b2e1a',
@@ -211,8 +237,21 @@
     });
   });
 
-  const profile = document.getElementById('logout');
-  profile.addEventListener('click', (event)=>{
+  const showDropdown = document.getElementById('show-dropdown');
+  const dropdown = document.querySelector('.dropdown-container');
+
+  showDropdown.addEventListener('click', (event)=>{
+    dropdown.classList.toggle('show-dropdown');
+  });
+
+  const historyAction = document.getElementById('history-action');
+  historyAction.addEventListener("click", (event)=>{
+    location.href="/book-history";
+  });
+
+  const logoutAction = document.getElementById('logout-action');
+  logoutAction.addEventListener("click",(event)=>{
+
     Swal.fire({
       title: 'Log Out?',
       text: "Are you sure want to log out from this account ?",
@@ -222,7 +261,7 @@
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes !'
+      confirmButtonText: 'Yes, log out !'
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
@@ -249,7 +288,7 @@
             })
           }
           else{
-            location.href="/";
+            location.href="/log-in";
           }
         });
       }

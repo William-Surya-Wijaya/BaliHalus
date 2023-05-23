@@ -11,14 +11,15 @@
         <div class="form">
           <div class="form-group">
             <label class="form-label">Name</label>
-            <div class="row">
-              <input id="name" class="input max" placeholder="Fill with your full name" autocomplete="off" />
-              <select id="gender" class="input fit">
-                <option value="" hidden selected>Pick</option>
-                <option>Male</option>
-                <option>Female</option>
-              </select>
-            </div>
+            <input id="name" class="input max" placeholder="Fill with your full name" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gender</label>
+            <select id="gender" class="input max">
+              <option value="" hidden selected>Pick</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
           </div>
           <div class="form-group">
             <label class="form-label">Username</label>
@@ -26,9 +27,9 @@
           </div>
           <div class="form-group">
             <label class="form-label">Password</label>
-            <div class="row">
-              <input id="password" type="password" placeholder="Fill your password" class="input max" style="margin-bottom: 0.5em;" />
-              <input id="passwordver" type="password" placeholder="Verify your password" class="input max" autocomplete="off" />
+            <div style="width:100%; display:flex; column-gap:1em;">
+              <input id="password" type="password" placeholder="Fill your password" class="input max" />
+              <input id="passwordver" type="password" placeholder="Verify password" class="input max" autocomplete="off" />
             </div>
           </div>
           <div class="form-group">

@@ -1,0 +1,728 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" href="/admincss" />
+
+<html>
+  <body>
+    <div id="page" class="main-page">
+
+      <div class="left-nav">
+        <div class="left-title"><i class="fa fa-compress bold" aria-hidden="true"></i><div class="left-menu">BaliHalus</div></div>
+
+        <div class="left-items">
+          <button class="left-button" onclick="javascript:location.href= '/admin'"><i class="fa fa-home icon" aria-hidden="true"></i><div class="left-menu">Dashboard</div></button>
+          <button class="left-button left-button-selected" onclick="javascript:location.href= '/admin-users'"><i class="fa fa-users icon" aria-hidden="true"></i><div class="left-menu">Users</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-branch'"><i class="fa fa-building icon" aria-hidden="true"></i><div class="left-menu">Branch Store</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-services'"><i class="fa fa-archive icon" aria-hidden="true"></i><div class="left-menu">Variant</div></button>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="page-nav">
+          <div class="page-nav-title">Welcome, William Wijaya</div>
+          <div class="page-nav-account">
+            <i class="fa fa-user bold" aria-hidden="true"></i>
+            <div class="account-name">William Wijaya</div>
+            <button id="show-dropdown" class="button"><i class="fa fa-caret-down" aria-hidden="true"></i></button>
+          </div>
+          <div class="dropdown-container">
+            <button id="logout-action" class="dropdown-item">Log Out</button>
+          </div>
+        </div>
+
+        <div class="page-content">
+          <div class="content">
+            <div class="page-nav-title" style="font-weight:bold !important; font-size: 2em; margin-bottom: 1em;">Users Data <button class="button-action add-button" style="font-size:0.5em !important;margin-left: 1em;">Add</button></div>
+
+            <div style="min-height: 27em !important; min-width: 80% !important;">
+              <table id="historyTable">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Group</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td>William Wijaya</td>
+                    <td>Male</td>
+                    <td>william05</td>
+                    <td>william@gmail.com</td>
+                    <td>081313489781</td>
+                    <td>Admin</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Nana Banana</td>
+                    <td>Male</td>
+                    <td>rrqlemon</td>
+                    <td>nanabanana@gmail.com</td>
+                    <td>08123123123</td>
+                    <td>Admin</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Kevin Budiman</td>
+                    <td>Male</td>
+                    <td>kevin02</td>
+                    <td>kevinB@gmail.com</td>
+                    <td>081234567801</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Budi Kosiman</td>
+                    <td>Male</td>
+                    <td>budi03</td>
+                    <td>budiK@gmail.com</td>
+                    <td>0812345678899</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Satrio Nugraha</td>
+                    <td>Male</td>
+                    <td>satrio04</td>
+                    <td>satrioN@gmail.com</td>
+                    <td>081234567977</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Michael Lukman</td>
+                    <td>Male</td>
+                    <td>michael05</td>
+                    <td>michaelLooks@gmail.com</td>
+                    <td>081234557856</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Agnes Monic</td>
+                    <td>Female</td>
+                    <td>agnes06</td>
+                    <td>agnesM@gmail.com</td>
+                    <td>081987654345</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>Fero Wandaw</td>
+                    <td>Female</td>
+                    <td>fero07</td>
+                    <td>feroW@gmail.com</td>
+                    <td>081987654534</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Denise Indira</td>
+                    <td>Female</td>
+                    <td>denise08</td>
+                    <td>deniseInd@gmail.com</td>
+                    <td>081987675423</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Grace Nadine</td>
+                    <td>Female</td>
+                    <td>Grace09</td>
+                    <td>graceNad@gmail.com</td>
+                    <td>081576890212</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>Abigail Hartanto</td>
+                    <td>Female</td>
+                    <td>abi10</td>
+                    <td>abigus@gmail.com</td>
+                    <td>081122497312</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>John Doe</td>
+                    <td>Male</td>
+                    <td>johndoe</td>
+                    <td>johndoe@gmail.com</td>
+                    <td>081234567802</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  
+                  <tr>
+                    <td></td>
+                    <td>David Brown</td>
+                    <td>Male</td>
+                    <td>davidbrown</td>
+                    <td>davidbrown@gmail.com</td>
+                    <td>081234567806</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  
+                  <tr>
+                    <td></td>
+                    <td>Emily Taylor</td>
+                    <td>Female</td>
+                    <td>emilytaylor</td>
+                    <td>emilytaylor@gmail.com</td>
+                    <td>081234567807</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td></td>
+                    <td>Matthew Davis</td>
+                    <td>Male</td>
+                    <td>matthewdavis</td>
+                    <td>matthewdavis@gmail.com</td>
+                    <td>081234567810</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  
+                  <tr>
+                    <td></td>
+                    <td>Olivia Clark</td>
+                    <td>Female</td>
+                    <td>oliviaclark</td>
+                    <td>oliviaclark@gmail.com</td>
+                    <td>081234567811</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  
+                  <tr>
+                    <td></td>
+                    <td>Andrew Johnson</td>
+                    <td>Male</td>
+                    <td>andrewjohnson</td>
+                    <td>andrewjohnson@gmail.com</td>
+                    <td>081234567813</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  
+                  <tr>
+                    <td></td>
+                    <td>William Thompson</td>
+                    <td>Male</td>
+                    <td>williamthompson</td>
+                    <td>williamthompson@gmail.com</td>
+                    <td>081234567815</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  
+                  <tr>
+                    <td></td>
+                    <td>James Davis</td>
+                    <td>Male</td>
+                    <td>jamesdavis</td>
+                    <td>jamesdavis@gmail.com</td>
+                    <td>081234567817</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Ethan Martinez</td>
+                    <td>Male</td>
+                    <td>ethanmartinez</td>
+                    <td>ethanmartinez@gmail.com</td>
+                    <td>081234567819</td>
+                    <td>Customer</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr> 
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <div class="popup-form" id="popup">
+    <div class="card">
+      <div class="header">EDIT</div>
+      <div class="content-form">
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input id="name" class="input max" placeholder="Fill user full name" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gender</label>
+            <select id="gender" class="input max">
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input id="username" class="input max" placeholder="Fill user username" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input id="phone" class="input max" placeholder="Fill user phone number" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-Mail</label>
+            <input id="email" class="input max" placeholder="Fill user email" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Group</label>
+            <select id="group" class="input max">
+              <option>Customer</option>
+              <option>Admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="button-group">
+          <button id="submit" class="button primary">Submit</button>
+          <button  class="button secondary" id="cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-form" id="popup-add">
+    <div class="card">
+      <div class="header">ADD</div>
+      <div class="content-form">
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input id="add-name" class="input max" placeholder="Fill user full name" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gender</label>
+            <select id="add-gender" class="input max">
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input id="add-username" class="input max" placeholder="Fill user username" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input id="add-password" class="input max" placeholder="Fill user password" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input id="add-phone" class="input max" placeholder="Fill user phone number" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-Mail</label>
+            <input id="add-email" class="input max" placeholder="Fill user email" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Group</label>
+            <select id="add-group" class="input max">
+              <option>Customer</option>
+              <option>Admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="button-group">
+          <button id="add-submit" class="button primary">Submit</button>
+          <button  class="button secondary" id="add-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>
+
+<script>
+  const table = $('#historyTable').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "pageLength": 10,
+    scrollX: true,
+    fixedColumns: {
+      left: 2,
+      right: 1
+    },
+    "drawCallback": function(settings) {
+      $('#historyTable').find('td').addClass('noWrap');
+      $('#historyTable').find('td:nth-child(1)').addClass('textRight');
+      $('#historyTable').find('td:nth-child(1)').addClass('table-title');
+    },
+    "columnDefs": [
+      {
+        "targets": 7,
+        "width": "100px"
+      },
+      {
+        "targets": 0,
+        "width": "50px"
+      },
+      {
+        "targets": 0,
+        "data": null,
+        "orderable": false,
+        "className": "dt-center",
+        "render": function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      }
+    ]
+  });
+
+  const popup = document.getElementById('popup');
+
+  const formName = document.getElementById("name");
+  const formUsername = document.getElementById("username");
+  const formGender = document.getElementById("gender");
+  const formPhone = document.getElementById("phone");
+  const formEmail = document.getElementById("email");
+  const formGroup = document.getElementById("group");
+
+  const addAction = document.querySelector(".add-button");
+  const addPopup = document.getElementById("popup-add");
+
+  const addFormName = document.getElementById("add-name");
+  const addFormUsername = document.getElementById("add-username");
+  const addFormPassword = document.getElementById("add-password");
+  const addFormGender = document.getElementById("add-gender");
+  const addFormPhone = document.getElementById("add-phone");
+  const addFormEmail = document.getElementById("add-email");
+  const addFormGroup = document.getElementById("add-group");
+
+  function assignButton(){
+    const cancel = document.getElementById('cancel');
+
+    cancel.addEventListener('click',(event)=>{
+      popup.classList.toggle('show');
+    });
+
+    const sumbitButton = document.getElementById('submit');
+
+    const buttonAction = document.querySelectorAll('.edit-action');
+    buttonAction.forEach((button)=>{
+      button.addEventListener('click',(event)=>{
+        const name = event.target.parentNode.parentNode.children[1];
+        const gender = event.target.parentNode.parentNode.children[2];
+        const username = event.target.parentNode.parentNode.children[3];
+        const email = event.target.parentNode.parentNode.children[4];
+        const phone = event.target.parentNode.parentNode.children[5];
+        const group = event.target.parentNode.parentNode.children[6];
+
+        formName.value = name.innerHTML;
+        formGender.value = gender.innerHTML;
+        formUsername.value = username.innerHTML;
+        formEmail.value = email.innerHTML;
+        formPhone.value = phone.innerHTML;
+        formGroup.value = group.innerHTML;
+
+        popup.classList.toggle('show');
+
+        sumbitButton.addEventListener("click",()=>{
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "Make sure your data is right!",
+            icon: 'warning',
+            background: "#f9faf4",
+            color: '#1b2e1a',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes !'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              name.innerHTML = formName.value;
+              gender.innerHTML = formGender.value;
+              username.innerHTML = formUsername.value;
+              email.innerHTML = formEmail.value;
+              phone.innerHTML = formPhone.value;
+              group.innerHTML = formGroup.value;
+
+              popup.classList.toggle('show');
+
+              Swal.fire({
+                title: 'Saved !',
+                icon: 'success',
+                color: '#1b2e1a',
+                text: 'Data successfuly changed.',
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true
+              });
+            }
+          });
+        });
+      });
+    });
+
+    const deleteAction = document.querySelectorAll(".delete-action");
+
+    deleteAction.forEach((button)=>{
+      button.addEventListener("click",(event)=>{
+
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Are you sure you want to delete this data ?",
+          icon: 'warning',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete !'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const targetRow = event.target.closest('tr');
+            const table = $('#historyTable').DataTable();
+            const rowIndex = table.row(targetRow).index();
+
+            table.row(rowIndex).remove().draw();
+
+            Swal.fire({
+              title: 'Saved !',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Data successfuly deleted.',
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true
+            });
+          }
+        });
+      });
+    });
+  }
+
+  function generateButton(){
+    return "<div class=row><button class='button-action edit-action'>Edit</button><button class='button-action delete-action'>Delete</button></td>";
+  }
+
+  addAction.addEventListener('click', (event)=>{
+    addFormName.value = "";
+    addFormUsername.value = "";
+    addFormPassword.value = "";
+    addFormGender.value = "Male";
+    addFormPhone.value = "";
+    addFormEmail.value = "";
+    addFormGroup.value = "Customer";
+
+    addPopup.classList.toggle('show');
+
+    addSubmit.addEventListener('click',(event)=>{
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Are you sure you want to add this data ?",
+        icon: 'warning',
+        background: "#f9faf4",
+        color: '#1b2e1a',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, add !'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          table.row.add([
+              "",
+              addFormName.value,
+              addFormUsername.value,
+              addFormGender.value,
+              addFormPhone.value,
+              addFormEmail.value,
+              addFormGroup.value,
+              generateButton()
+            ]).draw();
+          addPopup.classList.toggle('show');
+          assignButton();
+          Swal.fire({
+            title: 'Saved !',
+            icon: 'success',
+            color: '#1b2e1a',
+            text: 'Data successfuly Added.',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true
+          });
+        }
+      });
+    });
+  })
+
+  const addCancel = document.getElementById('add-cancel');
+  const addSubmit = document.getElementById('add-submit');
+
+  addCancel.addEventListener('click', (event)=>{
+    addPopup.classList.toggle('show');
+  });
+
+  assignButton();
+
+  const showDropdown = document.getElementById('show-dropdown');
+  const dropdown = document.querySelector('.dropdown-container');
+
+  showDropdown.addEventListener('click', (event)=>{
+    dropdown.classList.toggle('show-dropdown');
+  });
+
+  const logoutAction = document.getElementById('logout-action');
+  logoutAction.addEventListener("click",(event)=>{
+
+    Swal.fire({
+      title: 'Log Out?',
+      text: "Are you sure want to log out from this account ?",
+      icon: 'warning',
+      background: "#f9faf4",
+      color: '#1b2e1a',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, log out !'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Logging Out',
+          icon: 'success',
+          color: '#1b2e1a',
+          text: 'Logging Out from your account.',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: "Cancel",
+          cancelButtonColor: "#d33",
+          timer: 3000,
+          timerProgressBar: true
+        }).then((result)=>{
+          if(result.dismiss === Swal.DismissReason.cancel){
+            Swal.fire({
+              title: 'Cancelled',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Logging Out Cancelled.',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true
+            })
+          }
+          else{
+            location.href="/log-in";
+          }
+        });
+      }
+    });
+
+  });
+</script>

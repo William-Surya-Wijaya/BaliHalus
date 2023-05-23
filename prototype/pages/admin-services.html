@@ -1,0 +1,564 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" href="/admincss" />
+
+<html>
+  <body>
+    <div id="page" class="main-page">
+
+      <div class="left-nav">
+        <div class="left-title"><i class="fa fa-compress bold" aria-hidden="true"></i><div class="left-menu">BaliHalus</div></div>
+
+        <div class="left-items">
+          <button class="left-button" onclick="javascript:location.href= '/admin'"><i class="fa fa-home icon" aria-hidden="true"></i><div class="left-menu">Dashboard</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-users'"><i class="fa fa-users icon" aria-hidden="true"></i><div class="left-menu">Users</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-branch'"><i class="fa fa-building icon" aria-hidden="true"></i><div class="left-menu">Branch Store</div></button>
+          <button class="left-button left-button-selected" onclick="javascript:location.href= '/admin-services'"><i class="fa fa-archive icon" aria-hidden="true"></i><div class="left-menu">Variant</div></button>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="page-nav">
+          <div class="page-nav-title">Welcome, William Wijaya</div>
+          <div class="page-nav-account">
+            <i class="fa fa-user bold" aria-hidden="true"></i>
+            <div class="account-name">William Wijaya</div>
+            <button id="show-dropdown" class="button"><i class="fa fa-caret-down" aria-hidden="true"></i></button>
+          </div>
+          <div class="dropdown-container">
+            <button id="logout-action" class="dropdown-item">Log Out</button>
+          </div>
+        </div>
+
+        <div class="page-content">
+          <div class="content">
+            <div class="page-nav-title" style="font-weight:bold !important; font-size: 2em; margin-bottom: 1em;">Services Data <button class="button-action add-button" style="font-size:0.5em !important;margin-left: 1em;">Add</button></div>
+            
+
+            <div style="min-height: 27em !important; min-width: 80% !important;">
+              <table id="historyTable">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Services</th>
+                    <th>Variant</th>
+                    <th>Reservations</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td>Scrub</td>
+                    <td>Milk</td>
+                    <td>13</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Scrub</td>
+                    <td>Strawberry</td>
+                    <td>17</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Scrub</td>
+                    <td>Chocolate</td>
+                    <td>10</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Scrub</td>
+                    <td>Coffee</td>
+                    <td>12</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Scrub</td>
+                    <td>Boreh</td>
+                    <td>8</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>Scrub</td>
+                    <td>Sandalwood</td>
+                    <td>6</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Mask</td>
+                    <td>Milk</td>
+                    <td>17</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Mask</td>
+                    <td>Strawberry</td>
+                    <td>15</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Mask</td>
+                    <td>Chocolate</td>
+                    <td>12</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Mask</td>
+                    <td>Coffee</td>
+                    <td>11</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Mask</td>
+                    <td>Boreh</td>
+                    <td>6</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>Mask</td>
+                    <td>Sandalwood</td>
+                    <td>9</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Oil</td>
+                    <td>Rose</td>
+                    <td>18</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Oil</td>
+                    <td>Jasmine</td>
+                    <td>20</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Oil</td>
+                    <td>Sandalwood</td>
+                    <td>8</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Oil</td>
+                    <td>Lemongrass</td>
+                    <td>10</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td></td>
+                    <td>Oil</td>
+                    <td>Lavender</td>
+                    <td>7</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>Oil</td>
+                    <td>Frangipani</td>
+                    <td>5</td>
+                    <td class="row">
+                      <button class="button-action edit-action">Edit</button>
+                      <button class="button-action delete-action">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <div class="popup-form" id="popup">
+    <div class="card">
+      <div class="header">EDIT</div>
+      <div class="content-form">
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label">Services</label>
+            <select id="services" class="input max">
+              <option>Scrub</option>
+              <option>Mask</option>
+              <option>Oil Massage</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Variant</label>
+            <input id="variant" class="input max" placeholder="Fill service variant" autocomplete="off" />
+          </div>
+        </div>
+        <div class="button-group">
+          <button id="submit" class="button primary">Submit</button>
+          <button  class="button secondary" id="cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-form" id="popup-add">
+    <div class="card">
+      <div class="header">ADD</div>
+      <div class="content-form">
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label">Service</label>
+            <select id="add-service" class="input max">
+              <option selected hidden value="">Select Service</option>
+              <option>Scrub</option>
+              <option>Mask</option>
+              <option>Oil Massage</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Variant</label>
+            <input id="add-variant" class="input max" placeholder="Fill service variant" autocomplete="off" />
+          </div>
+        </div>
+        <div class="button-group">
+          <button id="add-submit" class="button primary">Submit</button>
+          <button  class="button secondary" id="add-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>
+
+<script>
+  const table = $('#historyTable').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "pageLength": 10,
+    scrollX: true,
+    fixedColumns: {
+      left: 2,
+      right: 1
+    },
+    "drawCallback": function(settings) {
+      $('#historyTable').find('td').addClass('noWrap');
+      $('#historyTable').find('td:nth-child(1)').addClass('textRight');
+      $('#historyTable').find('td:nth-child(1)').addClass('table-title');
+    },
+    "columnDefs": [
+      {
+        "targets": 3,
+        "width": "100px"
+      },
+      {
+        "targets": 4,
+        "width": "100px"
+      },
+      {
+        "targets": 0,
+        "width": "100px"
+      },
+      {
+        "targets": 0,
+        "data": null,
+        "orderable": false,
+        "className": "dt-center",
+        "render": function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      }
+    ]
+  });
+
+  const popup = document.getElementById('popup');
+  const cancel = document.getElementById('cancel');
+
+  cancel.addEventListener('click',(event)=>{
+    popup.classList.toggle('show');
+  });
+
+  const formServices = document.getElementById("services");
+  const formVariant = document.getElementById("variant");
+  const sumbitButton = document.getElementById('submit');
+
+  const buttonAction = document.querySelectorAll('.edit-action');
+  buttonAction.forEach((button)=>{
+    button.addEventListener('click',(event)=>{
+      const service = event.target.parentNode.parentNode.children[1];
+      const variant = event.target.parentNode.parentNode.children[2];
+
+      formServices.value = service.innerHTML;
+      formVariant.value = variant.innerHTML;
+
+      popup.classList.toggle('show');
+
+      sumbitButton.addEventListener("click",()=>{
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Make sure your data is right!",
+          icon: 'warning',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes !'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            variant.innerHTML = formVariant.value;
+            service.innerHTML = formServices.value;
+
+            popup.classList.toggle('show');
+
+            Swal.fire({
+              title: 'Saved !',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Data successfuly changed.',
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true
+            });
+          }
+        });
+      });
+    });
+  });
+
+  const deleteAction = document.querySelectorAll(".delete-action");
+
+  deleteAction.forEach((button)=>{
+    button.addEventListener("click",(event)=>{
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Are you sure you want to delete this data ?",
+        icon: 'warning',
+        background: "#f9faf4",
+        color: '#1b2e1a',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete !'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const targetRow = event.target.closest('tr');
+          const table = $('#historyTable').DataTable();
+          const rowIndex = table.row(targetRow).index();
+
+          table.row(rowIndex).remove().draw();
+
+          Swal.fire({
+            title: 'Saved !',
+            icon: 'success',
+            color: '#1b2e1a',
+            text: 'Data successfuly deleted.',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true
+          });
+        }
+      });
+    });
+  });
+
+  function generateButton(){
+    return "<div class=row><button class='button-action edit-action'>Edit</button><button class='button-action delete-action'>Delete</button></td>";
+  }
+
+  const addAction = document.querySelector(".add-button");
+  const addPopup = document.getElementById("popup-add");
+
+  const addFormBranch = document.getElementById("add-service");
+  const addFormLocation = document.getElementById("add-variant");
+
+  addAction.addEventListener('click', (event)=>{
+    addFormBranch.value = "";
+    addFormLocation.value = "";
+
+    addPopup.classList.toggle('show');
+
+    addSubmit.addEventListener('click',(event)=>{
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Are you sure you want to add this data ?",
+        icon: 'warning',
+        background: "#f9faf4",
+        color: '#1b2e1a',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, add !'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          table.row.add([
+            "",
+            addFormBranch.value,
+            addFormLocation.value,
+            "0",
+            generateButton()
+          ]).draw();
+          addPopup.classList.toggle('show');
+
+          Swal.fire({
+            title: 'Saved !',
+            icon: 'success',
+            color: '#1b2e1a',
+            text: 'Data successfuly Added.',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true
+          });
+        }
+      });
+    });
+  });
+
+  const addCancel = document.getElementById('add-cancel');
+  const addSubmit = document.getElementById('add-submit');
+
+  addCancel.addEventListener('click', (event)=>{
+    addPopup.classList.toggle('show');
+  });
+
+  const showDropdown = document.getElementById('show-dropdown');
+  const dropdown = document.querySelector('.dropdown-container');
+
+  showDropdown.addEventListener('click', (event)=>{
+    dropdown.classList.toggle('show-dropdown');
+  });
+
+  const logoutAction = document.getElementById('logout-action');
+  logoutAction.addEventListener("click",(event)=>{
+
+    Swal.fire({
+      title: 'Log Out?',
+      text: "Are you sure want to log out from this account ?",
+      icon: 'warning',
+      background: "#f9faf4",
+      color: '#1b2e1a',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, log out !'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Logging Out',
+          icon: 'success',
+          color: '#1b2e1a',
+          text: 'Logging Out from your account.',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: "Cancel",
+          cancelButtonColor: "#d33",
+          timer: 3000,
+          timerProgressBar: true
+        }).then((result)=>{
+          if(result.dismiss === Swal.DismissReason.cancel){
+            Swal.fire({
+              title: 'Cancelled',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Logging Out Cancelled.',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true
+            })
+          }
+          else{
+            location.href="/log-in";
+          }
+        });
+      }
+    });
+
+  });
+
+</script>

@@ -118,6 +118,42 @@ export const router = async (request, response) =>{
     response.setHeader('Content-Type', 'font');
     response.end(content);
   }
+  else if(request.url == "/admin"){
+    const content = await fs.readFile('./pages/admin.html', 'utf-8');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/html');
+    response.end(content);
+  }
+  else if(request.url == "/admin-dashboard"){
+    const content = await fs.readFile('./pages/admin.html', 'utf-8');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/html');
+    response.end(content);
+  }
+  else if(request.url == "/admin-users"){
+    const content = await fs.readFile('./pages/admin-users.html', 'utf-8');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/html');
+    response.end(content);
+  }
+  else if(request.url == "/admin-branch"){
+    const content = await fs.readFile('./pages/admin-branch.html', 'utf-8');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/html');
+    response.end(content);
+  }
+  else if(request.url == "/admin-services"){
+    const content = await fs.readFile('./pages/admin-services.html', 'utf-8');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/html');
+    response.end(content);
+  }
+  else if(request.url == "/admincss"){
+    const content = await fs.readFile('./includes/css/admin.css', 'utf-8');
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/html');
+    response.end(content);
+  }
   else{
     response.statusCode = 404;
     response.setHeader('Content-Type', 'text/plain');
