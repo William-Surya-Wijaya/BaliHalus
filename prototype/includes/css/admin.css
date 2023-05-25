@@ -210,7 +210,7 @@ body{
   background-color: transparent !important;
   padding: 0.5em 0.5em;
   font-size: 1em;
-  color: #395237;
+  color: #395237 !important;
 }
 
 .row{
@@ -490,6 +490,10 @@ body{
 .datefilter-title{
   font-size: 0.9em;
   font-weight: bold;
+}
+
+.white{
+  color: #f9faf4 !important;
 }
 
 input{

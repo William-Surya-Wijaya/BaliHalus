@@ -28,6 +28,7 @@
           <button class="left-button" onclick="javascript:location.href= '/admin-users'"><i class="fa fa-users icon" aria-hidden="true"></i><div class="left-menu">Users</div></button>
           <button class="left-button" onclick="javascript:location.href= '/admin-branch'"><i class="fa fa-building icon" aria-hidden="true"></i><div class="left-menu">Branch Store</div></button>
           <button class="left-button left-button-selected" onclick="javascript:location.href= '/admin-reservations'"><i class="fa fa-shopping-bag icon" aria-hidden="true"></i><div class="left-menu">Reservation</div></button>
+          <button class="left-button" onclick="javascript:location.href= '/admin-typeservices'"><i class="fa fa-bath icon" aria-hidden="true"></i><div class="left-menu">Service</div></button>
           <button class="left-button" onclick="javascript:location.href= '/admin-services'"><i class="fa fa-archive icon" aria-hidden="true"></i><div class="left-menu">Variant</div></button>
         </div>
       </div>
@@ -56,7 +57,7 @@
                 <div class="datefilter-title">to</div>
                 <input class="datefilter" type="text" id="max" />
                 <div class="revenue-container">
-                  <input class="datefilter" type="text" id="revenue" />
+                  <input class="datefilter" type="text" id="revenue" readonly/>
                 </div>
               </div>
               
@@ -252,7 +253,7 @@
   
   $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
-      var reservationDate = moment(data[5], 'DD MMM YYYY hh:mm A');
+      var reservationDate = moment(data[5], 'DD MMM YYYY');
 
       console.log(minDate + " "+ reservationDate + " " + maxDate)
 
