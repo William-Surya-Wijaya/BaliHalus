@@ -1,0 +1,214 @@
+*{
+  margin: 0; padding: 0;
+}
+
+.logo{
+  font-size: 2em;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: #f9faf4 !important;
+  z-index: 3;
+  padding: 1em;
+  position: absolute;
+  top: 3%;
+  left: 42%;
+}
+
+body{
+  background: url(/baliHalus/nav-header-image);
+  background-color: #dbddcf;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  backdrop-filter: blur(4px);
+}
+
+body::before {
+  content: "";
+  background-color: rgba(18, 37, 23, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  width: 550px;
+  background-color: #f9faf4;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 3;
+}
+
+.bold{
+  color: black;
+  font-weight: bold;
+  margin: 0.5em;
+  font-size: 1.5em;
+}
+
+.header{
+  background-color: #2e3f2e;
+  color: white;
+  font-weight: bold;
+  padding: 0.5em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  padding: 1.5em;
+  padding-top: 2em;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: row;
+}
+
+.form-label{
+  padding: 0.5em 0.2em;
+  width: 220px;
+  color: #335730;
+  font-weight: bold;
+}
+
+.context{
+  color: #335730;
+}
+
+.fit{
+  width: fit-content !important;
+}
+
+.max{
+  width: 100% !important;
+}
+
+.input{
+  border: 2px solid #dbddcf;
+  border-radius: 9px;
+  width: 300px;
+  height: 100%;
+  background-color: transparent;
+  padding: 0.5em 0.5em;
+  font-size: 1em;
+  color: #395237;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  column-gap: 1em;
+}
+
+.stock:focus{
+  outline:none
+}
+
+.input:focus{
+  outline: none;
+}
+
+.button-group{
+  margin-top: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.button{
+  width: 150px;
+  border-radius: 9px;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.primary{
+  background-color: #2e3f2e;
+  color: white;
+}
+
+.secondary{
+  background-color: #dbddcf;
+  color: black;
+}
+
+.account{
+  margin-top: 0.5em;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  color: #2e3f2e;
+}
+
+.account:hover{
+  text-decoration: underline;
+}
+
+.show-dropdown{
+  display: flex !important;
+  opacity: 100% !important;
+  z-index: 9;
+  transition: all 0.25s ease-in-out;
+}
+
+.dropdown-container{
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  z-index: 3;
+  padding: 0.5em;
+  display: none;
+  flex-direction: column;
+  row-gap: 0.5em;
+  border-radius: 9px;
+  background-color: transparent;
+  top: 11%;
+  left: 60%;
+  opacity: 0;
+  transition: all;
+}
+
+.dropdown-item{
+  width: 200px;
+  height: 30px;
+  border-radius: 9px;
+  background-color: #142213;
+  border: 0;
+  color: white;
+  font-size: 0.9em;
+  transition: all 0.25s ease-in-out;
+}
+
+.dropdown-item:hover{
+  background-color: #d4d8d4 !important;
+  color: #2e3f2e;
+}

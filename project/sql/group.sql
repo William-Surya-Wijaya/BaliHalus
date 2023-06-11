@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS group;
-
-CREATE TABLE group (
-  id_group INT AUTO_INCREMENT PRIMARY KEY,
-  group VARCHAR(50) NOT NULL,
-  created_at DATETIME DEFAULT NOW(),
-  updated_at DATETIME,
-  deleted_at DATETIME
-);

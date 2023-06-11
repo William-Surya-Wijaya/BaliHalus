@@ -1,0 +1,205 @@
+<link rel="stylesheet" href="/baliHalus/signincss" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<html>
+  <body>
+    <div class="logo"><i class="fa fa-compress bold" aria-hidden="true"></i>BaliHalus</div>
+    <div class="card">
+      <div class="header">Log In</div>
+      <div class="content">
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input id="username" class="input max" placeholder="Fill your username (min 8 characters)" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input id="password" type="password" placeholder="Fill your password" class="input max" />
+          </div>
+        </div>
+        <div class="account" id="donthave">Dont have an account yet ?</div>
+        <div class="button-group">
+          <button id="submit" class="button primary">Submit</button>
+          <button onclick="javascript:location.href='/baliHalus/';" class="button secondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const submitButton = document.getElementById('submit');
+
+    submitButton.addEventListener('click',()=>{
+      let validation = "";
+
+      const form = {
+        username : document.getElementById('username').value,
+        password : document.getElementById('password').value
+      }
+
+      if(form.username == null || form.username == ""){validation = "Please fill your username !"}
+      else if(form.password == null || form.password == ""){validation = "Please fill your password !"}
+
+      if(validation == ""){
+        const init = {
+          method : 'post',
+          headers : {
+            "Content-type": "application/json"
+          },
+          body : JSON.stringify(form)
+        };
+
+        fetch('/BaliHalus/login', init).then((response)=>{
+          return response.text();
+        }).then((resultText)=>{
+          console.log(resultText);
+          if (resultText == 'ok'){
+            Swal.fire({
+              title: 'Success',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Login Success.',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true
+            }).then(()=>{
+              location.href='/BaliHalus/';
+            });
+          } else if (resultText != 'ok'){
+            Swal.fire({
+              title: 'Failed',
+              text: resultText,
+              icon: 'error',
+              background: "#f9faf4",
+              color: '#1b2e1a',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Ok !'
+            });
+          } else {
+            Swal.fire({
+              title: 'Failed',
+              text: "Please try again or contact admin!",
+              icon: 'error',
+              background: "#f9faf4",
+              color: '#1b2e1a',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Ok !'
+            });
+          }
+        });
+      }
+      else if(validation == "admin"){
+        Swal.fire({
+          title: 'You are an admin !',
+          text: "Do you want to go to admin page ?",
+          icon: 'question',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, admin page !',
+          cancelButtonText: "No, user page !"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: 'Directing',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Directing to admin page.',
+              showConfirmButton: false,
+              showCancelButton: true,
+              cancelButtonText: "Cancel",
+              cancelButtonColor: "#d33",
+              timer: 3000,
+              timerProgressBar: true
+            }).then((result)=>{
+              if(result.dismiss === Swal.DismissReason.cancel){
+                Swal.fire({
+                  title: 'Cancelled',
+                  icon: 'success',
+                  color: '#1b2e1a',
+                  text: 'Directing Cancelled.',
+                  showConfirmButton: false,
+                  timer: 1500,
+                  timerProgressBar: true
+                })
+              }
+              else{
+                location.href="/baliHalus/admin";
+              }
+            });
+          }
+          else{
+            Swal.fire({
+              title: 'Directing',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Directing to user page.',
+              showConfirmButton: false,
+              showCancelButton: true,
+              cancelButtonText: "Cancel",
+              cancelButtonColor: "#d33",
+              timer: 3000,
+              timerProgressBar: true
+            }).then((result)=>{
+              if(result.dismiss === Swal.DismissReason.cancel){
+                Swal.fire({
+                  title: 'Cancelled',
+                  icon: 'success',
+                  color: '#1b2e1a',
+                  text: 'Directing Cancelled.',
+                  showConfirmButton: false,
+                  timer: 1500,
+                  timerProgressBar: true
+                })
+              }
+              else{
+                location.href="/baliHalus/signed";
+              }
+            });
+          }
+        });
+      }
+      else{
+        Swal.fire({
+          title: 'Check Your Data',
+          text: validation,
+          icon: 'error',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'Ok'
+        });
+      }
+    });
+
+    const donthave = document.getElementById('donthave');
+    donthave.addEventListener('click', (event)=>{
+      Swal.fire({
+        title: 'Dont have an account ?',
+        text: "If you dont have any account you may create one!",
+        icon: 'question',
+        background: "#f9faf4",
+        color: '#1b2e1a',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok, Sign Up !'
+      }).then((result)=>{
+        if(result.isConfirmed){
+          location.href = "/baliHalus/sign-in";
+        }
+      });
+    });
+  });
+</script>

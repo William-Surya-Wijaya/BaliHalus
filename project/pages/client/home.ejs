@@ -1,0 +1,199 @@
+<link rel="stylesheet" href="/baliHalus/homecss" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="page" class="main-page">
+
+      <div class="main-page-header">
+        <%- include('./layout/nav-bar.ejs') %>
+
+        <div class="nav-content">
+          <div class="row">
+            <div class="col">
+              <div class="nav-title">Get some relaxation from the expert.</div>
+              <div class="nav-context">Discover the ultimate escape from the stresses of everyday life. Our spa is a sanctuary of tranquility, designed to help you relax, rejuvenate, and renew your mind, body, and spirit.</div>
+              <div class="row">
+                <%- login ? `<div class="dark-button" id="gotobook">Book Now</div>` : `<div class="dark-button" id="signin2">Sign In</div>` %>
+              </div>
+              <div class="row" style="column-gap: 4em; margin-top: 3em;">
+                <div class="col">
+                  <div class="nav-title">24</div>
+                  <div class="nav-subtitle">Branch Store</div>
+                </div>
+                <div class="col">
+                  <div class="nav-title">50+</div>
+                  <div class="nav-subtitle">Customer Daily</div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="nav-image-box">
+                <div class="nav-main-image"></div>
+                <div class="nav-sub-image"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-page-content">
+
+        <div class="row">
+          <div class="col">
+            <div class="content-title">Book Now</div>
+            <div class="content-context">Discover the ultimate escape from the stresses of everyday life.</div>
+          </div>
+          <div class="row" id="book-section">
+            <% for(const service of services){ %>
+              <%- 
+                `<div class="menu-card" id="${service.service}">
+                  <div class="menu-card-header" style="background-image: url('/baliHalus/banner-image?services=${service.banner}')"><div class="menu-card-header-content">Book Now</div></div>
+                  <div class="menu-card-body">
+                    <div class="menu-card-title">${service.service}</div>
+                    <div class="menu-card-context">BaliHalus</div>
+                  </div>
+                </div>`
+              %>
+            <% } %>
+          </div>
+
+          <div class="col">
+            <div class="content-title">Pick Your Preference</div>
+            <div class="content-context">Discover the ultimate escape from the stresses of everyday life.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-page-content">
+        <div class="row">
+
+          <div class="col" style="width: 27%;">
+            <div class="col">
+              <div class="content-title">About Us</div>
+              <div class="content-context">Welcome to BaliHalus, where relaxation and rejuvenation await you. Our skilled therapists are trained to deliver a range of treatments, from signature massages to holistic facials, that will leave you feeling refreshed, renewed, and restored.</div>
+              <div class="content-context"> At BaliHalus, we believe that true beauty and wellness come from within. That's why we use only the finest natural and organic ingredients in our treatments, sourced from local farmers and artisans. We are committed to promoting sustainable and eco-friendly practices that support the health of our planet and our community.</div>
+              <div class="content-context">We invite you to escape the hustle and bustle of daily life and step into our tranquil oasis, where you can unwind, recharge, and reconnect with your inner peace. Come visit us and discover the healing power of Bali's timeless traditions.</div>
+            </div>
+          </div>
+
+          <div class="col"><div class="sign-image"></div></div>
+
+          <div class="col" style="width: 29%; margin-left: 1em;">
+            <div class="col">
+              <div class="content-title">Privacy Policy</div>
+              <div class="content-context">We value your privacy and are committed to protecting your personal information. We will never share or sell your personal information to third-party marketers or advertisers without your consent.</div>
+            </div>
+  
+            <div class="col">
+              <div class="content-title">Terms & Guidelines</div>
+              <div class="content-context">To ensure the safety and well-being of our guests and staff, we ask that you carefully read and follow our spa guidelines and policies. These guidelines cover topics such as arrival times, cancellation policies, dress code, and more.</div>
+            </div>
+  
+            <div class="col">
+              <div class="content-title">Contact</div>
+              <div class="content-context">You can contact us at <b>cs@baliHalus.com</b>. We only respond to emails that inquire about technical matters that are still related to BaliHalus spa.</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="footer">
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
+
+<script>
+  const spa = document.getElementById('spascrub');
+  const massage = document.getElementById('massage');
+  const refleksi = document.getElementById('relfeksi');
+</script>
+
+<% if(login){
+  %>
+  <script>
+    const gotobook = document.getElementById('gotobook');
+    const page = document.getElementById('page');
+  
+    gotobook.addEventListener('click', ()=>{
+      const yOffset = 120;
+      const targetElement = document.querySelector('#book-section');
+      const targetOffsetTop = targetElement.offsetTop;
+      const scrollToY = targetOffsetTop - yOffset;
+  
+      page.scrollTo({ top: scrollToY, behavior: "smooth" });
+    });
+
+    const banners = document.querySelectorAll('.menu-card');
+    banners.forEach((banner)=>{
+      banner.addEventListener('click', (event)=>{
+        location.href=`/baliHalus/book?service=${banner.id}`;
+      });
+    });
+  </script>
+  <%
+} else {
+  %>
+  <script>
+    const signin2 = document.getElementById('signin2');
+  
+    signin2.addEventListener('click', ()=>{
+      location.href = '/baliHalus/sign-in';
+    });
+
+    const alerts = document.querySelectorAll('.menu-card');
+    alerts.forEach((alert) => {
+      alert.addEventListener('click', (event)=>{
+        Swal.fire({
+          title: 'You are not Logged In.',
+          text: "You need to be logged in to book services!",
+          icon: 'warning',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ok, Log In !'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: 'Directing',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'You will be directed to log in page.',
+              showConfirmButton: false,
+              showCancelButton: true,
+              cancelButtonText: "Cancel",
+              cancelButtonColor: "#d33",
+              timer: 3000,
+              timerProgressBar: true
+            }).then((result)=>{
+              if(result.dismiss === Swal.DismissReason.cancel){
+                Swal.fire({
+                  title: 'Cancelled',
+                  icon: 'success',
+                  color: '#1b2e1a',
+                  text: 'Directing cancelled.',
+                  showConfirmButton: false,
+                  timer: 1500,
+                  timerProgressBar: true
+                })
+              }
+              else{
+                location.href="/baliHalus/log-in";
+              }
+            });
+          }
+        })
+      });
+    });
+  </script>
+  <%
+} %>
