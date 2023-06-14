@@ -1,0 +1,58 @@
+<div class="page-nav">
+  <div class="page-nav-title">Welcome, <%= name %></div>
+  <div class="page-nav-account">
+    <i class="fa fa-user bold" aria-hidden="true"></i>
+    <div class="account-name"><%= name.split(" ")[0] %></div>
+    <button id="show-dropdown" class="button small"><i class="fa fa-caret-down" aria-hidden="true"></i></button>
+  </div>
+  <div class="dropdown-container">
+    <button id="logout-action" class="dropdown-item">Log Out</button>
+  </div>
+</div>
+
+<script>
+  const logoutAction = document.getElementById('logout-action');
+    logoutAction.addEventListener("click",(event)=>{
+      Swal.fire({
+        title: 'Log Out?',
+        text: "Are you sure want to log out from this account ?",
+        icon: 'warning',
+        background: "#f9faf4",
+        color: '#1b2e1a',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, log out !'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Logging Out',
+            icon: 'success',
+            color: '#1b2e1a',
+            text: 'Logging Out from your account.',
+            showConfirmButton: false,
+            showCancelButton: true,
+            cancelButtonText: "Cancel",
+            cancelButtonColor: "#d33",
+            timer: 3000,
+            timerProgressBar: true
+          }).then((result)=>{
+            if(result.dismiss === Swal.DismissReason.cancel){
+              Swal.fire({
+                title: 'Cancelled',
+                icon: 'success',
+                color: '#1b2e1a',
+                text: 'Logging Out Cancelled.',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true
+              })
+            }
+            else{
+              location.href="/baliHalus/logout";
+            }
+          });
+        }
+      });
+    });
+</script>

@@ -1,7 +1,7 @@
 -- SERVICE
-INSERT INTO services (`service`, `banner`) VALUES ('Spa', 'spa.jpg');
-INSERT INTO services (`service`, `banner`) VALUES ('Body Massage', 'massage.jpg');
-INSERT INTO services (`service`, `banner`) VALUES ('Reflection', 'refleksi.jpg');
+INSERT INTO services (`service`, `banner`, `price`) VALUES ('Spa', 'spa.jpg', '55000');
+INSERT INTO services (`service`, `banner`, `price`) VALUES ('Body Massage', 'massage.jpg', '40000');
+INSERT INTO services (`service`, `banner`, `price`) VALUES ('Reflection', 'refleksi.jpg', '35000');
 
 -- VARIANT 
 INSERT INTO variant_mst (`id_service`, `variant`) VALUES (1, 'Scrub');

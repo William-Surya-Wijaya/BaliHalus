@@ -1,0 +1,143 @@
+* {
+  padding: 0; margin: 0;
+}
+
+body{
+  width: 650px;
+  height: auto;
+  background-color: #dbddcf;
+  display: flex;
+  height: 1080px;
+}
+
+.print-area{
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9faf4;
+  border-radius: 10px;
+  padding: 40px;
+  overflow: auto;
+  height: 1080px;
+  zoom: 0.9;
+}
+
+.logo{
+  background-image: url(/baliHalus/logo-small);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 400px;
+  height: 100px;
+  text-align: left;
+}
+
+.header{
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  margin-top: 1em;
+}
+
+.header * {
+  font-size: 18px;
+}
+
+.header *:first-child{
+  font-weight: bold;
+  font-size: 42px;
+  margin-bottom: 0.5em;
+}
+
+.trans-mst {
+  margin: 6em 0 1em 0;
+  padding: 1em;
+  border-radius: 9px;
+  background-color: #1b2e1a;
+  color: #f9faf4;
+}
+
+.trans-mst * {
+  font-size: 18px;
+}
+
+.trans-mst  *:first-child{
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 0.5em;
+}
+
+.user-detail {
+  margin: 1em 0 4em 0;
+  padding: 1em;
+  border-radius: 9px;
+  background-color: #dbddcf;
+}
+
+.user-detail * {
+  font-size: 18px;
+}
+
+.user-detail  *:first-child{
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 0.5em;
+}
+
+.trans-detail * {
+  font-size: 18px;
+}
+
+.bold{
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 0.5em;
+}
+
+.trademark * {
+  font-size: 18px;
+}
+
+
+.history-table{
+  width: 100%;
+}
+
+.history-table > thead > tr {
+  background-color: #1b2e1a;
+  color: #f9faf4;
+}
+
+.history-table > thead > tr:first-child > th:first-child{
+  border-top-left-radius: 9px;
+}
+
+.history-table > thead > tr:first-child > th:last-child{
+  border-top-right-radius: 9px;
+}
+
+.history-table > tfoot > tr > th{
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+  padding: 0.2em 1em;
+  background-color: #1b2e1a;
+}
+
+.history-table th{
+  margin: 0;
+  padding: 0.2em 1em;
+}
+
+.history-table > tbody > tr:nth-child(even) > td{
+  background-color: #ebede4;
+}
+
+.history-table > tbody > tr > td{
+  margin: 0;
+  height: 50px;
+  padding: 0 0.8em !important;
+}
+
+.history-table > tbody > tr:not(:last-child) > td{
+  border-bottom: 1px solid #acaea5;
+}

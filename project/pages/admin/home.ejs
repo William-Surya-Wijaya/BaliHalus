@@ -1,0 +1,200 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link rel="stylesheet" href="/baliHalus/admincss" />
+
+<html>
+  <body>
+    <div id="page" class="main-page">
+      <%- include('./layout/left-bar.ejs') %>
+
+      <div class="page">
+        <%- include('./layout/top-bar.ejs') %>
+
+        <div class="page-content">
+          <div class="summary-container">
+
+            <% let totalNow = 0; let totalPast = 0; let precentageTotal; %>
+            <% for (let i = 0; i < servicesRevenue.length && i < pastServicesRevenue.length; i++) { const row = servicesRevenue[i]; const past = pastServicesRevenue[i]; totalNow += row.revenue; totalPast += past.revenue; %>
+            <% } %>
+
+            <div class="summary">
+              <div class="summary-header">
+                <div class="sum-header-icon"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></div>
+                <div class="sum-header-title">Grand Total Sales</div>
+              </div>
+              <div class="summary-body">
+                <div class="summary-total"><%= (totalNow).toLocaleString('en-US') + ' IDR' %></div>
+              </div>
+              <div class="summary-footer">
+                <div class="summary-compare">Compared to <%= (totalPast).toLocaleString('en-US') + ' IDR' %></div>
+                <% const percentageTotal = ((totalNow - totalPast) / totalPast) * 100; %>
+                <% if (percentageTotal == 'Infinity') { %>
+                  <div class="summary-foot blue">0%</div>
+                <% } else if (percentageTotal > 0) { %>
+                  <div class="summary-foot">+<%= percentageTotal.toFixed(2) %>%</div>
+                <% } else if (percentageTotal < 0) { %>
+                  <div class="summary-foot orange"><%= percentageTotal.toFixed(2) %>%</div>
+                <% } else { %>
+                  <div class="summary-foot blue">0%</div>
+                <% } %>
+              </div>
+            </div>
+            
+
+            <% for (let i = 0; i < servicesRevenue.length && i < pastServicesRevenue.length; i++) { const row = servicesRevenue[i]; const past = pastServicesRevenue[i]; const percentage = ((row.revenue - past.revenue) / past.revenue) * 100;%>
+              <div class="summary">
+                  <div class="summary-header">
+                      <div class="sum-header-icon"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></div>
+                      <div class="sum-header-title">Total <%= row.service %></div>
+                  </div>
+                  <div class="summary-body">
+                      <div class="summary-total"><%= (row.revenue).toLocaleString('en-US') + ' IDR' %></div>
+                  </div>
+                  <div class="summary-footer">
+                      <div class="summary-compare">Compared to <%= (past.revenue).toLocaleString('en-US') + ' IDR' %></div>
+                      <% if (percentage == 'Infinity') { %>
+                        <div class="summary-foot blue">0%</div>
+                      <% } else if (percentage > 0) { %>
+                        <div class="summary-foot">+<%= percentage.toFixed(2) %>%</div>
+                      <% } else if (percentage < 0) { %>
+                        <div class="summary-foot orange"><%= percentage.toFixed(2) %>%</div>
+                      <% } else { %>
+                        <div class="summary-foot blue">0%</div>
+                      <% } %>
+                  </div>
+              </div>
+            <% } %>
+          </div>
+
+          <div class="content">
+            <div class="favorite-container">
+
+              <% for (let i = 0; i < servicesReservation.length && i < pastServicesReservation.length; i++) { const row = servicesReservation[i]; const past = pastServicesReservation[i]; const percentage = ((row.revenue - past.revenue) / past.revenue) * 100;%>
+                <div class="favorite">
+                  <div class="summary-header">
+                    <div class="sum-header-icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                    <div class="sum-header-title"><%= row.service %></div>
+                  </div>
+                  <div class="summary-body">
+                    <div class="summary-total"><%= row.revenue %> Reservations</div>
+                  </div>
+                  <div class="summary-footer">
+                    <div class="summary-compare">Compared to <%= past.revenue %></div>
+                    <% if (percentage == 'Infinity') { %>
+                      <div class="summary-foot blue">0%</div>
+                    <% } else if (percentage > 0) { %>
+                      <div class="summary-foot">+<%= percentage.toFixed(2) %>%</div>
+                    <% } else if (percentage < 0) { %>
+                      <div class="summary-foot orange"><%= percentage.toFixed(2) %>%</div>
+                    <% } else { %>
+                      <div class="summary-foot blue">0%</div>
+                    <% } %>
+                  </div>
+                </div>
+              <% } %>
+            </div>
+
+            <canvas id="reservationChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  const showDropdown = document.getElementById('show-dropdown');
+  const dropdown = document.querySelector('.dropdown-container');
+
+  showDropdown.addEventListener('click', (event)=>{
+    dropdown.classList.toggle('show-dropdown');
+  });
+
+  $('#historyTable').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "pageLength": 10,
+    scrollX: true,
+    fixedColumns: {
+      left: 2,
+      right: 1
+    },
+    "drawCallback": function(settings) {
+      $('#historyTable').find('td').addClass('noWrap');
+      $('#historyTable').find('td:nth-child(1)').addClass('textRight');
+      $('#historyTable').find('td:nth-child(1)').addClass('table-title');
+    },
+    language: {
+      "sSortAscending": '<i class="fa fa-sort-up" aria-hidden="true"></i>',
+      "sSortDescending": '<i class="fa fa-sort-down" aria-hidden="true"></i>'
+    },
+    "columnDefs": [
+      {
+        "targets": 0,
+        "data": null,
+        "orderable": false,
+        "className": "dt-center",
+        "render": function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      }
+    ]
+  });
+
+  //GENERATE CHART
+  const ctx = document.getElementById('reservationChart');
+  ctx.classList.add('chart');
+
+  var data = {
+    labels: [<% servicesReservation.forEach((row, index) => { %>
+      '<%= row.service %>'<%= index !== servicesReservation.length - 1 ? ',' : '' %><% }) %>],
+    datasets: [{
+      label: 'Reservation',
+      data: [<% servicesReservation.forEach((row, index) => { %>
+        <%= row.revenue %><%= index !== servicesReservation.length - 1 ? ',' : '' %><% }) %>],
+      backgroundColor: 'rgb(247, 250, 233)',
+      borderRadius: '9px'
+    }]
+  };
+
+  var options = {
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          font: {
+            size: 14,
+          },
+          color: 'blue'
+        }
+      },
+      x: {
+        ticks: {
+          font: {
+            size: 14,
+          },
+          color: 'red'
+        }
+      }
+    }
+  };
+
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
+</script>

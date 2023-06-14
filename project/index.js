@@ -11,6 +11,8 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 
 import moment from 'moment';
+import { transferableAbortController } from 'util';
+import { start } from 'repl';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -63,14 +65,14 @@ function authenticateToken(req, res, next) {
     const authHeader = req.session.authHeader;
 
     if (!authHeader) {
-      return res.sendStatus(401);
+      res.redirect('/baliHalus/forbidden');
     }
 
     let tokenVerified = false;
 
     jwt.verify(authHeader, 'secret', (err, user) => {
       if (err) {
-        return res.sendStatus(403);
+        res.redirect('/baliHalus/forbidden');
       }
       req.session.user = user;
       tokenVerified = true;
@@ -124,6 +126,25 @@ function getVariantMaster(serviceId, callback) {
   });
 }
 
+function getUserDetail(userId, callback){
+  connectionSQL.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      callback(err, null);
+    } else {
+      connection.query("SELECT * FROM users WHERE id_user='"+userId+"'", (error, results) => {
+        if (error) {
+          callback(error, null);
+        } else {
+          callback(null, results);
+        }
+
+        connection.release();
+      });
+    }
+  });
+}
+
 function getVariantDetail(serviceId, callback) {
   connectionSQL.getConnection((err, connection) => {
     if (err) {
@@ -143,25 +164,83 @@ function getVariantDetail(serviceId, callback) {
   });
 }
 
-function getTransactionMaster(userId, dateStart, dateEnd, callback){
+function getTransactionCount(userId, dateStart, dateEnd, callback){
   connectionSQL.getConnection((err, connection) => {
     if (err) {
       console.error('Error connecting to the database:', err);
       callback(err, null);
     } else {
       if((dateStart != undefined && dateStart != null && dateStart != "") && (dateEnd != undefined && dateEnd != null && dateEnd != "")){
-        connection.query("SELECT a.id_trans AS id_trans, a.trans_num AS trans_num, a.`reservation_time` AS reservation_time, c.`service` AS service, f.`branch` AS branch, f.`location` AS location FROM transactions_mst a LEFT JOIN services c ON a.`id_service`=c.`id_service` LEFT JOIN branch f ON a.`id_branch`=f.`id_branch` WHERE a.`deleted_at` IS NULL AND a.id_user='"+userId+"' AND a.reservation_time BETWEEN '"+dateStart+"' AND '"+dateEnd+"'", (error, results) => {
+        connection.query("SELECT count(*) AS totalRow FROM transactions_mst a WHERE a.`deleted_at` IS NULL AND a.id_user='"+userId+"' AND a.reservation_time BETWEEN '"+dateStart+"' AND '"+dateEnd+"'", (error, results) => {
           if (error) {
-            connection.release();
             callback(error, null);
           } else {
-            connection.release();
-            callback(null, results);
+            callback(null, Math.ceil(parseInt(results[0].totalRow)/8));
           }
+
+          connection.release();
         });
       }
       else{
-        connection.query("SELECT a.id_trans AS id_trans, a.trans_num AS trans_num, a.`reservation_time` AS reservation_time, c.`service` AS service, f.`branch` AS branch, f.`location` AS location FROM transactions_mst a LEFT JOIN services c ON a.`id_service`=c.`id_service` LEFT JOIN branch f ON a.`id_branch`=f.`id_branch` WHERE a.`deleted_at` IS NULL AND a.id_user='"+userId+"'", (error, results) => {
+        connection.query("SELECT count(*) AS totalRow FROM transactions_mst a WHERE a.`deleted_at` IS NULL AND a.id_user='"+userId+"'", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, Math.ceil(parseInt(results[0].totalRow)/8));
+          }
+
+          connection.release();
+        });
+      }
+    }
+  });
+}
+
+function getThisTransaction(userId, transId, callback){
+  connectionSQL.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      callback(err, null);
+    } else {
+      connection.query("SELECT * FROM transactions_mst a LEFT JOIN transactions_det b ON a.id_trans=b.id_parent LEFT JOIN branch c ON a.id_branch=c.id_branch LEFT JOIN services d ON a.id_service=d.id_service LEFT JOIN variant_det e ON b.id_variant_det=e.id_variant_det LEFT JOIN variant_mst f ON e.id_parent=f.id_variant WHERE a.id_user='"+userId+"' AND a.id_trans='"+transId+"'", (error, results) => {
+        if (error) {
+          callback(error, null);
+        } else {
+          callback(null, results);
+        }
+
+        connection.release();
+      });
+    }
+  });
+}
+
+function getTransactionMaster(userId, dateStart, dateEnd, page, callback){
+  connectionSQL.getConnection((err, connection) => {
+    let limit = "";
+    if(parseInt(page) != NaN && page != undefined && page != null){
+      limit += " LIMIT "+(page*8)+",8";
+    }
+    else{
+      limit += " LIMIT 0,8";
+    }
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      callback(err, null);
+    } else {
+      if((dateStart != undefined && dateStart != null && dateStart != "") && (dateEnd != undefined && dateEnd != null && dateEnd != "")){
+        connection.query("SELECT a.id_trans AS id_trans, a.trans_num AS trans_num, a.`reservation_time` AS reservation_time, c.`service` AS service, f.`branch` AS branch, f.`location` AS location, c.price AS price FROM transactions_mst a LEFT JOIN services c ON a.`id_service`=c.`id_service` LEFT JOIN branch f ON a.`id_branch`=f.`id_branch` WHERE a.`deleted_at` IS NULL AND a.id_user='"+userId+"' AND a.reservation_time BETWEEN '"+dateStart+"' AND '"+dateEnd+"' "+limit+"", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, results);
+          }
+
+          connection.release();
+        });
+      }
+      else{
+        connection.query("SELECT a.id_trans AS id_trans, a.trans_num AS trans_num, a.`reservation_time` AS reservation_time, c.`service` AS service, f.`branch` AS branch, f.`location` AS location, c.price AS price FROM transactions_mst a LEFT JOIN services c ON a.`id_service`=c.`id_service` LEFT JOIN branch f ON a.`id_branch`=f.`id_branch` WHERE a.`deleted_at` IS NULL AND a.id_user='"+userId+"' "+limit+"", (error, results) => {
           if (error) {
             connection.release();
             callback(error, null);
@@ -171,7 +250,6 @@ function getTransactionMaster(userId, dateStart, dateEnd, callback){
           }
         });
       }
-      
     }
   });
 }
@@ -200,6 +278,95 @@ function getTransactionDetail(userId, idTrans,callback){
             callback(null, results);
           }
   
+          connection.release();
+        });
+      }
+    }
+  });
+}
+
+function isAdmin(req, res, next){
+  connectionSQL.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+    } else {
+      connection.query("SELECT b.group FROM users a LEFT JOIN `group` b ON a.id_group=b.id_group WHERE a.id_user='"+req.session.idUser+"' LIMIT 1", (error, result)=>{
+        if(error){
+          console.error(error);
+          res.send('Internal Error - Please Contact Admin');
+        } else if (result == ""){
+          res.send('Please check your username and password !');
+        } else if (result != "") {
+          if(result[0].group = "admin"){
+            next();
+          }
+          else{
+            res.redirect('/baliHalus/forbidden');
+          }
+        }
+        connection.release();
+      });
+    }
+  });
+}
+
+function getServiceRevenue(serviceId, dateStart, dateEnd, callback){
+  connectionSQL.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      callback(err, null);
+    } else {
+      if((dateStart != undefined && dateStart != null && dateStart != "") && (dateEnd != undefined && dateEnd != null && dateEnd != "")){
+        connection.query("SELECT s.service AS service, s.price*COUNT(t.id_service) AS totalRevenue FROM services s LEFT JOIN transactions_mst t ON s.id_service = t.id_service AND t.id_service = '"+serviceId+"' AND t.reservation_time BETWEEN '"+dateStart+"' AND '"+dateEnd+"' WHERE s.id_service = '"+serviceId+"' GROUP BY service", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, results);
+          }
+
+          connection.release();
+        });
+      }
+      else{
+        connection.query("SELECT s.service AS service, s.price*COUNT(t.id_service) AS totalRevenue FROM services s LEFT JOIN transactions_mst t ON s.id_service = t.id_service AND t.id_service = '"+serviceId+"' WHERE s.id_service = '"+serviceId+"' GROUP BY service", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, results);
+          }
+
+          connection.release();
+        });
+      }
+    }
+  });
+}
+
+function getServiceReservations(serviceId, dateStart, dateEnd, callback){
+  connectionSQL.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      callback(err, null);
+    } else {
+      if((dateStart != undefined && dateStart != null && dateStart != "") && (dateEnd != undefined && dateEnd != null && dateEnd != "")){
+        connection.query("SELECT s.service AS service, COUNT(t.id_service) AS totalRevenue FROM services s LEFT JOIN transactions_mst t ON s.id_service = t.id_service AND t.id_service = '"+serviceId+"' AND t.reservation_time BETWEEN '"+dateStart+"' AND '"+dateEnd+"' WHERE s.id_service = '"+serviceId+"' GROUP BY service", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, results);
+          }
+
+          connection.release();
+        });
+      }
+      else{
+        connection.query("SELECT s.service AS service, COUNT(t.id_service) AS totalRevenue FROM services s LEFT JOIN transactions_mst t ON s.id_service = t.id_service AND t.id_service = '"+serviceId+"' WHERE s.id_service = '"+serviceId+"' GROUP BY service", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, results);
+          }
+
           connection.release();
         });
       }
@@ -236,7 +403,7 @@ app.get('/baliHalus/' ,(req, res)=>{
 
 app.get('/baliHalus/log-in', (req, res)=>{
   if(req.session.isLoggedin){
-    req.session.role == 'admin' ? res.redirect('/baliHalus/admin-home') : res.redirect('/baliHalus/');
+    req.session.role == 'admin' ? res.redirect('/baliHalus/admin/dashboard') : res.redirect('/baliHalus/');
   }
   else{
     res.render('login');
@@ -245,11 +412,15 @@ app.get('/baliHalus/log-in', (req, res)=>{
 
 app.get('/baliHalus/sign-in', (req, res)=>{
   if(req.session.isLoggedin){
-    req.session.role == 'admin' ? res.redirect('/baliHalus/admin-home') : res.redirect('/baliHalus/');
+    req.session.role == 'admin' ? res.redirect('/baliHalus/admin/dashboard') : res.redirect('/baliHalus/');
   }
   else{
     res.render('signin');
   }
+});
+
+app.get('/baliHalus/forbidden', (req, res)=>{
+  res.render('forbidden');
 });
 
 app.get('/baliHalus/book', authenticateToken, (req, res) => {
@@ -314,23 +485,73 @@ app.get('/baliHalus/history', authenticateToken, (req, res) => {
       console.error('Error:', err);
       res.status(500).send('Internal Server Error');
     } else {
-      getTransactionMaster(req.session.idUser, req.query.datestart ? "" : req.query.datestart, req.query.dateend ? "" : req.query.dateend, (error, result)=>{
-        if(error){
-          console.error('Error:', error);
+      getTransactionCount(req.session.idUser, req.query.datestart ? req.query.datestart : "", req.query.dateend ? req.query.dateend : "", (err, totalPage)=>{
+        if(err){
+          console.error('Error:', err);
           res.status(500).send('Internal Server Error');
+          totalPage=null;
+          connection.release();
         } else {
-          res.render('client/history', {
-            page: 'History',
-            login: true,
-            data: result,
-            name: req.session.name
+          getTransactionMaster(req.session.idUser, req.query.datestart ? req.query.datestart : "", req.query.dateend ? req.query.dateend : "", req.query.page > totalPage-1 ? "0" : req.query.page, (error, result)=>{
+            if(error){
+              console.error('Error:', error);
+              res.status(500).send('Internal Server Error');
+              connection.release();
+            } else {
+              res.render('client/history', {
+                page: 'History',
+                login: true,
+                curr: req.query.page == null || req.query.page == undefined || req.query.page == "" ? 0 : (req.query.page > totalPage-1 ? "0" : req.query.page),
+                data: result,
+                totalpage: totalPage,
+                name: req.session.name,
+                currstart: req.query.datestart==undefined ? "" : req.query.datestart,
+                currend: req.query.dateend==undefined ? "" : req.query.dateend,
+                par: "datestart="+req.query.datestart==undefined ? "" : req.query.datestart+"&dateend="+req.query.dateend==undefined ? "" : req.query.dateend+"&filter="+req.query.filter==undefined ? "" : req.query.filter
+              });
+              connection.release();
+            }
           });
         }
       });
+      
     }
   });
 });
 
+app.get('/baliHalus/pass', authenticateToken, (req, res)=>{
+  connectionSQL.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      getUserDetail(req.session.idUser, (err, userDetail)=>{
+        if(err){
+          console.error('Error:', err);
+          res.status(500).send('Internal Server Erro7r');
+          connection.release();
+        }
+        else{
+          getThisTransaction(req.session.idUser, req.query.id, (err, transDetail)=>{
+            if(err){
+              console.error('Error:', err);
+              res.status(500).send('Internal Server Error');
+              connection.release();
+            }
+            else{
+              res.render('client/pass', {
+                page: 'Reservation Pass',
+                userdata: userDetail,
+                transData: transDetail
+              });
+              connection.release();
+            }
+          });
+        }
+      })
+    }
+  });
+});
 
 // PROGRESS
 app.post('/baliHalus/registration', (req, res) => {
@@ -355,6 +576,9 @@ app.post('/baliHalus/registration', (req, res) => {
                 if (!results || error) {
                   res.send('Not Found - Please Contact Admin');
                 } else {
+                  const token = jwt.sign({ username: username }, 'secret');
+
+                  req.session.authHeader = token;
                   req.session.isLoggedIn = true;
                   req.session.idUser = results[0].id_user;
                   req.session.name = name;
@@ -479,6 +703,135 @@ app.post('/baliHalus/reservation', authenticateToken, (req, res) => {
   });
 });
 
+app.get('/baliHalus/admin/dashboard', authenticateToken, isAdmin, async (req, res) => {
+  connectionSQL.getConnection(async (err, connection) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+    } else {
+      try {
+        const servicesId = await new Promise((resolve, reject) => {
+          connection.query("SELECT id_service FROM services WHERE deleted_at IS NULL", (error, servicesId) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(servicesId);
+            }
+          });
+        });
+
+        let servicePastRevenue = [];
+        let servicesPastReservation = [];
+        let servicesRevenue = [];
+        let servicesReservation = [];
+
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const dayPast = String(today.getDate() - 1).padStart(2, '0');
+        const dayStart = String(today.getDate()).padStart(2, '0');
+        const dayEnd = String(today.getDate() + 1).padStart(2, '0');
+
+        const pastStartDate = `${year}-${month}-${dayPast}`;
+        const startDate = `${year}-${month}-${dayStart}`;
+        const endDate = `${year}-${month}-${dayEnd}`;
+
+        for (const idservice of servicesId) {
+          const thisRevenue = await new Promise((resolve, reject) => {
+            getServiceRevenue(idservice.id_service, startDate, endDate, (err, thisRevenue) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(thisRevenue);
+              }
+            });
+          });
+
+          const thisReservations = await new Promise((resolve, reject) => {
+            getServiceReservations(idservice.id_service, startDate, endDate, (err, thisReservations) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(thisReservations);
+              }
+            });
+          });
+
+          const thisPastRevenue = await new Promise((resolve, reject) => {
+            getServiceRevenue(idservice.id_service, pastStartDate, startDate, (err, thisRevenue) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(thisRevenue);
+              }
+            });
+          });
+
+          const thisPastReservations = await new Promise((resolve, reject) => {
+            getServiceReservations(idservice.id_service, pastStartDate, startDate, (err, thisReservations) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(thisReservations);
+              }
+            });
+          });
+
+          const serRev = {
+            service: thisRevenue[0].service,
+            revenue: thisRevenue[0].totalRevenue
+          };
+          servicesRevenue.push(serRev);
+
+          const serRes = {
+            service: thisReservations[0].service,
+            revenue: thisReservations[0].totalRevenue,
+          };
+          servicesReservation.push(serRes);
+
+          const pastSerRev = {
+            service: thisPastRevenue[0].service,
+            revenue: thisPastRevenue[0].totalRevenue
+          };
+          servicePastRevenue.push(pastSerRev);
+
+          const pastSerRes = {
+            service: thisPastReservations[0].service,
+            revenue: thisPastReservations[0].totalRevenue,
+          };
+          servicesPastReservation.push(pastSerRes);
+        }
+
+        const reservations = await new Promise((resolve, reject) => {
+          getTransactionMaster(req.session.idUser, startDate, endDate, null, (err, reservations) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(reservations);
+            }
+          });
+        });
+
+        res.render('admin/home', {
+          page: 'Dashboard',
+          login: true,
+          servicesRevenue: servicesRevenue,
+          servicesReservation: servicesReservation,
+          pastServicesRevenue: servicePastRevenue,
+          pastServicesReservation: servicesPastReservation,
+          reservations: reservations,
+          name: req.session.name
+        });
+
+        connection.release();
+      } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Internal Server Error');
+        connection.release();
+      }
+    }
+  });
+});
+
 
 app.get('/baliHalus/logout', isLoggedIn ,(req, res) =>{
   req.session.isLoggedIn = false;
@@ -507,6 +860,16 @@ app.get('/baliHalus/historycss', (req,res)=>{
   const filePath = path.join(__dirname, 'includes/css/history.css');
   res.sendFile(filePath);
 })
+
+app.get('/baliHalus/passcss', (req, res)=>{
+  const filePath = path.join(__dirname, 'includes/css/pass.css');
+  res.sendFile(filePath);
+});
+
+app.get('/baliHalus/admincss', (req, res)=>{
+  const filePath = path.join(__dirname, 'includes/css/admin.css');
+  res.sendFile(filePath);
+});
 
 // ASSETS REQ - IMAGE
 

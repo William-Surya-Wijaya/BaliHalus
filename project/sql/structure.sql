@@ -25,6 +25,7 @@ CREATE TABLE services (
   id_service INT AUTO_INCREMENT PRIMARY KEY,
   `service` VARCHAR(50) NOT NULL,
   `banner` TEXT NOT NULL,
+  `price` FLOAT NOT NULL,
   created_at DATETIME DEFAULT NOW(),
   updated_at DATETIME DEFAULT NOW(),
   deleted_at DATETIME
@@ -34,6 +35,7 @@ DROP TABLE IF EXISTS transactions_mst;
 
 CREATE TABLE transactions_mst (
     id_trans INT AUTO_INCREMENT PRIMARY KEY,
+    trans_num VARCHAR(20),
     id_branch INT NOT NULL,
     id_user INT NOT NULL,
     id_service INT NOT NULL,
