@@ -177,7 +177,7 @@ function getTransactionCount(userId, dateStart, dateEnd, callback){
       callback(err, null);
     } else {
       if((dateStart != undefined && dateStart != null && dateStart != "") && (dateEnd != undefined && dateEnd != null && dateEnd != "")){
-        connection.query("SELECT count(*) AS totalRow FROM transactions_mst a WHERE a.`deleted_at` IS NULL AND a.id_user='"+userId+"' AND a.reservation_time BETWEEN '"+dateStart+" 00:00:00' AND '"+dateEnd+"' 23:59:59", (error, results) => {
+        connection.query("SELECT count(*) AS totalRow FROM transactions_mst a WHERE a.`deleted_at` IS NULL AND a.id_user='"+userId+"' AND a.reservation_time BETWEEN '"+dateStart+" 00:00:00' AND '"+dateEnd+" 23:59:59'", (error, results) => {
           if (error) {
             callback(error, null);
           } else {
