@@ -76,9 +76,9 @@
             <% } %>
           </div>
 
-          <div class="content">
-            <div class="favorite-container">
+          <div class="content smaller">
 
+            <div class="favorite-container">
               <% for (let i = 0; i < servicesReservation.length && i < pastServicesReservation.length; i++) { const row = servicesReservation[i]; const past = pastServicesReservation[i]; const percentage = ((row.revenue - past.revenue) / past.revenue) * 100;%>
                 <div class="favorite">
                   <div class="summary-header">
@@ -113,12 +113,6 @@
 </html>
 
 <script>
-  const showDropdown = document.getElementById('show-dropdown');
-  const dropdown = document.querySelector('.dropdown-container');
-
-  showDropdown.addEventListener('click', (event)=>{
-    dropdown.classList.toggle('show-dropdown');
-  });
 
   $('#historyTable').DataTable({
     "paging": true,
@@ -162,7 +156,7 @@
     labels: [<% servicesReservation.forEach((row, index) => { %>
       '<%= row.service %>'<%= index !== servicesReservation.length - 1 ? ',' : '' %><% }) %>],
     datasets: [{
-      label: 'Reservation',
+      label: 'Reservations Count Today',
       data: [<% servicesReservation.forEach((row, index) => { %>
         <%= row.revenue %><%= index !== servicesReservation.length - 1 ? ',' : '' %><% }) %>],
       backgroundColor: 'rgb(247, 250, 233)',
@@ -178,15 +172,22 @@
           font: {
             size: 14,
           },
-          color: 'blue'
+          color: 'rgb(247, 250, 233)'
+        },
+        grid: {
+          color: 'rgba(247, 250, 233, 0.1)'
         }
       },
       x: {
         ticks: {
           font: {
             size: 14,
+            weight: 'bold'
           },
-          color: 'red'
+          color: 'rgb(247, 250, 233)'
+        },
+        grid: {
+          color: 'rgba(247, 250, 233, 0.2)'
         }
       }
     }
@@ -197,4 +198,5 @@
     data: data,
     options: options
   });
+
 </script>

@@ -1,0 +1,198 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+<script src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.4.1/css/dataTables.dateTime.min.css" />
+
+
+<link rel="stylesheet" href="/baliHalus/admincss" />
+
+<html>
+  <body>
+    <div id="page" class="main-page">
+
+      <%- include('./layout/left-bar.ejs') %>
+
+      <div class="page">
+        <%- include('./layout/top-bar.ejs') %>
+
+        <div class="page-content">
+          <div class="content">
+            <div class="page-nav-title" style="font-weight:bold !important; font-size: 2em; margin-bottom: 1em;">Reservations Data</div>
+
+            <div style="min-height: 35em !important; min-width: 80% !important;">
+              <div class="datefilter-container">
+                <div class="datefilter-title">Period</div>
+                <input class="datefilter" type="text" id="min" />
+                <div class="datefilter-title">to</div>
+                <input class="datefilter" type="text" id="max" />
+                <div class="revenue-container">
+                  <input class="datefilter" type="text" id="revenue" readonly/>
+                </div>
+              </div>
+              
+              <table id="historyTable">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Book ID</th>
+                    <th>Service</th>
+                    <th>Branch</th>
+                    <th>Reservation Time</th>
+                    <th>Income</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(const row of reservations) { %>
+                    <% 
+                    const dateString = "2023-06-14 00:00:00";
+
+                    const date = new Date(row.reservation_time);
+                    
+                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+                    const day = ("0" + date.getDate()).slice(-2);
+                    const month = monthNames[date.getMonth()];
+                    const year = date.getFullYear();
+
+                    let hours = date.getHours();
+                    let minutes = date.getMinutes();
+                    let ampm = "AM";
+                    
+
+                    if (hours > 12) {
+                      hours -= 12;
+                      ampm = "PM";
+                    }
+
+                    if (minutes < 10) {
+                      minutes = "0" + minutes;
+                    }
+
+                    const formattedDate = `${day} ${month} ${year} ${hours}:${minutes} ${ampm}`;
+
+                    const formattedNumber = new Intl.NumberFormat('en-US').format(row.price)+' IDR';
+                    %>
+                    <tr>
+                      <td></td>
+                      <td><%= row.trans_num %></td>
+                      <td><%= row.service %></td>
+                      <td><%= row.branch %></td>
+                      <td><%= formattedDate %></td>
+                      <td><%= formattedNumber %></td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  const table = $('#historyTable').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "pageLength": 10,
+    scrollX: true,
+    fixedColumns: {
+      left: 2,
+      right: 1
+    },
+    "drawCallback": function(settings) {
+      $('#historyTable').find('td').addClass('noWrap');
+      $('#historyTable').find('td').addClass('paddingTable');
+      $('#historyTable').find('td:nth-child(1)').addClass('textRight');
+      $('#historyTable').find('td:nth-child(1)').addClass('table-title');
+    },
+    "columnDefs": [
+      {
+        "targets": 5,
+        "width": "100px"
+      },
+      {
+        "targets": 0,
+        "width": "50px"
+      },
+      {
+        "targets": 0,
+        "data": null,
+        "orderable": false,
+        "className": "dt-center",
+        "render": function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      }
+    ]
+  });
+
+  var minDate, maxDate;
+
+  $("#min").datepicker({
+    dateFormat: "dd M yy",
+    onSelect: function (dateText, inst) {
+      minDate = moment(dateText, 'DD MMM YYYY');
+      table.draw();
+    }
+  });
+  
+  $("#max").datepicker({
+    dateFormat: "dd M yy",
+    onSelect: function (dateText, inst) {
+      maxDate = moment(dateText, 'DD MMM YYYY');
+      table.draw();
+    }
+  });
+
+  const revenueTotal = document.getElementById('revenue');
+
+  function formatNumberToIDR(number) {
+    const formattedNumber = new Intl.NumberFormat('en-US').format(number);
+    return formattedNumber + ' IDR';
+  }
+
+  function revenueCounting(){
+    const filteredData = table.rows({ filter: 'applied' }).data();
+    let totalRevenue = 0;
+
+    filteredData.each(function (value, index) {
+      const revenue = parseFloat(value[5].replace(/[^0-9.-]+/g, ''));
+      totalRevenue += revenue;
+    });
+
+    revenueTotal.value = formatNumberToIDR(totalRevenue);
+  }
+  
+  $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+      const dateTimeString = data[4];
+      const parts = dateTimeString.split(" ");
+      const datePart = parts.slice(0, 3).join(" ");
+
+      var reservationDate = moment(datePart, 'DD MMM YYYY');
+
+      if ((minDate && reservationDate.isSameOrBefore(minDate)) || (maxDate && reservationDate.isSameOrAfter(maxDate))) {
+        return false;
+      }
+
+      return true;
+    }
+  );
+
+table.on('search.dt', revenueCounting);
+</script>

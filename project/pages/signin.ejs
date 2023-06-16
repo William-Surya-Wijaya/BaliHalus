@@ -140,7 +140,6 @@
               fetch('/BaliHalus/registration', init).then((response)=>{
                 return response.text();
               }).then((resultText)=>{
-                console.log(resultText);
                 if (resultText == 'ok'){
                   Swal.fire({
                     title: 'Success',

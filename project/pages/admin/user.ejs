@@ -1,0 +1,537 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" href="/baliHalus/admincss" />
+
+<html>
+  <body>
+    <div id="page" class="main-page">
+
+      <%- include('./layout/left-bar.ejs') %>
+
+      <div class="page">
+        <%- include('./layout/top-bar.ejs') %>
+
+        <div class="page-content">
+          <div class="content">
+            <div class="page-nav-title" style="font-weight:bold !important; font-size: 2em; margin-bottom: 1em;">Users Data <button class="button-action add-button" style="font-size:0.5em !important;margin-left: 1em;">Add</button></div>
+
+            <div style="min-height: 27em !important; min-width: 80% !important;">
+              <table id="historyTable">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Group</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(const row of users) { %>
+                    <tr>
+                      <td></td>
+                      <td><%= row.name %></td>
+                      <td><%= row.gender %></td>
+                      <td><%= row.username %></td>
+                      <td><%= row.email %></td>
+                      <td><%= row.phone %></td>
+                      <td><%= row.group %></td>
+                      <td class="row">
+                        <button id="<%= row.id_user %>" class="button-action edit-action">Edit</button>
+                        <button id="<%= row.id_user %>" class="button-action delete-action">Delete</button>
+                      </td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <div class="popup-form" id="popup">
+    <div class="card">
+      <div class="header">EDIT</div>
+      <div class="content-form">
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input id="name" class="input max" placeholder="Fill user full name" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gender</label>
+            <select id="gender" class="input max">
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input id="username" class="input max" placeholder="Fill user username" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input id="phone" class="input max" placeholder="Fill user phone number" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-Mail</label>
+            <input id="email" class="input max" placeholder="Fill user email" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Group</label>
+            <select id="group" class="input max">
+              <option value="2">Customer</option>
+              <option value="1">Admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="button-group">
+          <button id="submit" class="button primary">Submit</button>
+          <button  class="button secondary" id="cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-form" id="popup-add">
+    <div class="card">
+      <div class="header">ADD</div>
+      <div class="content-form">
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input id="add-name" class="input max" placeholder="Fill user full name" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gender</label>
+            <select id="add-gender" class="input max">
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input id="add-username" class="input max" placeholder="Fill user username" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input id="add-password" class="input max" placeholder="Fill user password" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input id="add-phone" class="input max" placeholder="Fill user phone number" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-Mail</label>
+            <input id="add-email" class="input max" placeholder="Fill user email" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Group</label>
+            <select id="add-group" class="input max">
+              <option value="2">Customer</option>
+              <option value="1">Admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="button-group">
+          <button id="add-submit" class="button primary">Submit</button>
+          <button  class="button secondary" id="add-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>
+
+<script>
+  const table = $('#historyTable').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "pageLength": 10,
+    scrollX: true,
+    fixedColumns: {
+      left: 2,
+      right: 1
+    },
+    "drawCallback": function(settings) {
+      $('#historyTable').find('td').addClass('noWrap');
+      $('#historyTable').find('td:nth-child(1)').addClass('textRight');
+      $('#historyTable').find('td:nth-child(1)').addClass('table-title');
+    },
+    "columnDefs": [
+      {
+        "targets": 7,
+        "width": "100px"
+      },
+      {
+        "targets": 0,
+        "width": "50px"
+      },
+      {
+        "targets": 0,
+        "data": null,
+        "orderable": false,
+        "className": "dt-center",
+        "render": function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      }
+    ]
+  });
+
+  function assignButton(){
+    const popup = document.getElementById('popup');
+
+    const formName = document.getElementById("name");
+    const formUsername = document.getElementById("username");
+    const formGender = document.getElementById("gender");
+    const formPhone = document.getElementById("phone");
+    const formEmail = document.getElementById("email");
+    const formGroup = document.getElementById("group");
+
+    const addAction = document.querySelector(".add-button");
+    const addPopup = document.getElementById("popup-add");
+
+    const addFormName = document.getElementById("add-name");
+    const addFormUsername = document.getElementById("add-username");
+    const addFormPassword = document.getElementById("add-password");
+    const addFormGender = document.getElementById("add-gender");
+    const addFormPhone = document.getElementById("add-phone");
+    const addFormEmail = document.getElementById("add-email");
+    const addFormGroup = document.getElementById("add-group");
+    
+    const cancel = document.getElementById('cancel');
+
+    cancel.addEventListener('click',(event)=>{
+      popup.classList.toggle('show');
+    });
+
+    const submitButton = document.getElementById('submit');
+
+    const buttonAction = document.querySelectorAll('.edit-action');
+    buttonAction.forEach((button)=>{
+      button.addEventListener('click',(event)=>{
+
+        const req = {id_user : event.target.id};
+
+        const init = {
+          method: 'post',
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify(req)
+        }
+
+        fetch('/BaliHalus/getUserData', init).then((response) => {
+          return response.json(); 
+        }).then((result) => {
+          if (result !== 'failed') {
+            const { name, gender, username, email, phone, id_group } = result[0];
+
+            formName.value = name;
+            formGender.value = gender;
+            formUsername.value = username;
+            formEmail.value = email;
+            formPhone.value = phone;
+            formGroup.value = id_group;
+    
+            popup.classList.toggle('show');
+          } else {
+            Swal.fire({
+              title: 'Failed',
+              text: "Failed to get user's detail",
+              icon: 'error',
+              background: "#f9faf4",
+              color: '#1b2e1a',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Ok !'
+            });
+          }
+        }).catch((error) => {
+          console.error('Error:', error);
+          
+        });
+
+        submitButton.addEventListener('click', (event)=>{
+
+          Swal.fire({
+            title: 'Are you sure ?',
+            text: "Make sure your data is right!",
+            icon: 'warning',
+            background: "#f9faf4",
+            color: '#1b2e1a',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes !'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const form = {
+                username: formUsername.value,
+                gender: formGender.value,
+                name: formName.value,
+                phone: formPhone.value,
+                email: formEmail.value,
+                id_group: formGroup.value,
+                id_user: req.id_user
+              };
+    
+              const init = {
+                method: 'post',
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(form)
+              };
+    
+              fetch('/BaliHalus/editUserData', init).then((response)=>{
+                return response.text();
+              }).then((resultText)=>{
+                if (resultText == 'ok'){
+                  Swal.fire({
+                    title: 'Success',
+                    icon: 'success',
+                    color: '#1b2e1a',
+                    text: `User's data edited successfully`,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true
+                  }).then(()=>{
+                    location.href='/BaliHalus/admin/users';
+                  });
+                } else if (resultText != 'ok'){
+                  Swal.fire({
+                    title: 'Failed',
+                    text: resultText,
+                    icon: 'error',
+                    background: "#f9faf4",
+                    color: '#1b2e1a',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ok !'
+                  });
+                } else {
+                  Swal.fire({
+                    title: 'Failed',
+                    text: "Please try again or contact admin!",
+                    icon: 'error',
+                    background: "#f9faf4",
+                    color: '#1b2e1a',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ok !'
+                  });
+                };
+              });
+            }
+          });
+        });
+      });
+    });
+
+    const deleteAction = document.querySelectorAll(".delete-action");
+
+    deleteAction.forEach((button)=>{
+      button.addEventListener("click",(event)=>{
+
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Are you sure you want to delete this data ?",
+          icon: 'warning',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete !'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const req = {id_user: event.target.id};
+
+            const init = {
+              method: 'post',
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(req)
+            };
+
+            fetch('/BaliHalus/deleteUserData', init).then((response)=>{
+              return response.text();
+            }).then((resultText)=>{
+              if (resultText == 'ok'){
+                Swal.fire({
+                  title: 'Success',
+                  icon: 'success',
+                  color: '#1b2e1a',
+                  text: `User's data deleted successfully`,
+                  showConfirmButton: false,
+                  timer: 1000,
+                  timerProgressBar: true
+                }).then(()=>{
+                  location.href='/BaliHalus/admin/users';
+                });
+              } else if (resultText != 'ok'){
+                Swal.fire({
+                  title: 'Failed',
+                  text: resultText,
+                  icon: 'error',
+                  background: "#f9faf4",
+                  color: '#1b2e1a',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Ok !'
+                });
+              } else {
+                Swal.fire({
+                  title: 'Failed',
+                  text: "Please try again or contact admin!",
+                  icon: 'error',
+                  background: "#f9faf4",
+                  color: '#1b2e1a',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Ok !'
+                });
+              };
+            });
+          }
+        });
+      });
+    });
+
+    addAction.addEventListener('click', (event)=>{
+      addFormName.value = "";
+      addFormUsername.value = "";
+      addFormPassword.value = "";
+      addFormGender.value = "Male";
+      addFormPhone.value = "";
+      addFormEmail.value = "";
+      addFormGroup.value = "2";
+  
+      addPopup.classList.toggle('show');
+  
+      addSubmit.addEventListener('click',(event)=>{
+  
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Are you sure you want to add this data ?",
+          icon: 'warning',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, add !'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const form = {
+              username: addFormUsername.value,
+              gender: addFormGender.value,
+              name: addFormName.value,
+              password: addFormPassword.value,
+              phone: addFormPhone.value,
+              email: addFormEmail.value,
+              id_group: addFormGroup.value
+            };
+  
+            const init = {
+              method: 'post',
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(form)
+            };
+  
+            fetch('/BaliHalus/addUserData', init).then((response)=>{
+              return response.text();
+            }).then((resultText)=>{
+              if (resultText == 'ok'){
+                Swal.fire({
+                  title: 'Success',
+                  icon: 'success',
+                  color: '#1b2e1a',
+                  text: `User's data added successfully`,
+                  showConfirmButton: false,
+                  timer: 1000,
+                  timerProgressBar: true
+                }).then(()=>{
+                  location.href='/BaliHalus/admin/users';
+                });
+              } else if (resultText != 'ok'){
+                Swal.fire({
+                  title: 'Failed',
+                  text: resultText,
+                  icon: 'error',
+                  background: "#f9faf4",
+                  color: '#1b2e1a',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Ok !'
+                });
+              } else {
+                Swal.fire({
+                  title: 'Failed',
+                  text: "Please try again or contact admin!",
+                  icon: 'error',
+                  background: "#f9faf4",
+                  color: '#1b2e1a',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Ok !'
+                });
+              };
+            });
+  
+            addPopup.classList.toggle('show');
+            Swal.fire({
+              title: 'Saved !',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Data successfuly Added.',
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true
+            });
+          }
+        });
+      });
+  
+      const addCancel = document.getElementById('add-cancel');
+      const addSubmit = document.getElementById('add-submit');
+  
+      addCancel.addEventListener('click', (event)=>{
+        addPopup.classList.toggle('show');
+      });
+    });
+  }
+
+  assignButton();
+
+  $('#historyTable').on('draw.dt', function() {
+    assignButton();
+  });
+</script>

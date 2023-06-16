@@ -1,0 +1,590 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" href="/baliHalus/admincss" />
+
+<html>
+  <body>
+    <div id="page" class="main-page">
+
+      <%- include('./layout/left-bar.ejs') %>
+
+      <div class="page">
+        <%- include('./layout/top-bar.ejs') %>
+
+        <div class="page-content">
+          <div class="content">
+            <div class="page-nav-title" style="font-weight:bold !important; font-size: 2em; margin-bottom: 1em;">Services Data <button class="button-action add-button" style="font-size:0.5em !important;margin-left: 1em;">Add</button></div>
+
+            <div style="min-height: 27em !important; min-width: 80% !important;">
+              <table id="historyTable">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Services</th>
+                    <th>Banner</th>
+                    <th>Price</th>
+                    <th>Reservations</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(const row of services) { %>
+                    <% const formattedNumber = new Intl.NumberFormat('en-US').format(row.revenue); const formattedPrice = new Intl.NumberFormat('en-US').format(row.price);  %>
+                    <tr>
+                      <td></td>
+                      <td><%= row.service %></td>
+                      <td> <%- 
+                        `<div class="menu-card">
+                          <div class="menu-card-header" style="background-image: url('/baliHalus/banner-image?services=${row.banner}')"></div>
+                        </div>`
+                      %></td>
+                      <td><%= formattedPrice %></td>
+                      <td><%= formattedNumber %></td>
+                      <td class="">
+                        <div class="row">
+                          <button id="<%= row.id_service %>" class="button-action edit-action">Edit</button>
+                          <button id="<%= row.id_service %>" class="button-action delete-action">Delete</button>
+                        </div>
+                      </td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <div class="popup-form" id="popup">
+    <div class="card">
+      <div class="header">EDIT</div>
+      <div class="content-form">
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label">Services</label>
+            <input id="services" class="input max" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Banner</label>
+            <label for="banner" class="custom-file-upload max button secondary">
+              <span id="file-label">Upload File</span>
+              <input type="file" class="input max" name="image" id="banner" />
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="form-label"></label>
+            <div class="image-display" id="imageDisplay2">
+              <img src="#" class="menu-card-header no-overflow" alt="Uploaded Image" id="uploadedImage2">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price</label>
+            <input id="price" class="input max" />
+          </div>
+        </div>
+        <div class="button-group">
+          <button id="submit" class="button primary">Submit</button>
+          <button  class="button secondary" id="cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-form" id="popup-add">
+    <div class="card">
+      <div class="header">ADD</div>
+      <div class="content-form">
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label">Service</label>
+            <input id="add-service" class="input max" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Banner</label>
+            <label for="add-banner" class="custom-file-upload max button secondary">
+              <span id="file-label-add">Upload File</span>
+              <input type="file" class="input max" name="image" id="add-banner" />
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="form-label"></label>
+            <div class="image-display" id="imageDisplay">
+              <img src="/baliHalus/banner-image?services=placeholder.png" class="menu-card-header no-overflow" alt="Uploaded Image" id="uploadedImage">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price</label>
+            <input id="add-price" class="input max" />
+          </div>
+        </div>
+        <div class="button-group">
+          <button id="add-submit" class="button primary">Submit</button>
+          <button  class="button secondary" id="add-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>
+
+<script>
+  const table = $('#historyTable').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "pageLength": 5,
+    scrollX: true,
+    fixedColumns: {
+      left: 2,
+      right: 1
+    },
+    "drawCallback": function(settings) {
+      $('#historyTable').find('td').addClass('noWrap');
+      $('#historyTable').find('td:nth-child(1)').addClass('textRight');
+      $('#historyTable').find('td:nth-child(1)').addClass('table-title');
+    },
+    "columnDefs": [
+      {
+        "targets": 2,
+        "width": "100px"
+      },
+      {
+        "targets": 3,
+        "width": "100px"
+      },
+      {
+        "targets": 4,
+        "width": "100px"
+      },
+      {
+        "targets": 5,
+        "width": "100px"
+      },
+      {
+        "targets": 0,
+        "width": "100px"
+      },
+      {
+        "targets": 0,
+        "data": null,
+        "orderable": false,
+        "className": "dt-center",
+        "render": function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      }
+    ]
+  });
+
+  function assignButton(){
+    const bannerInput = document.getElementById('banner');
+    const imageDisplay2 = document.getElementById('imageDisplay2');
+    const uploadedImage2 = document.getElementById('uploadedImage2');
+
+    bannerInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const fileReader = new FileReader();
+
+      fileReader.onload = function(event) {
+        uploadedImage2.src = event.target.result;
+        imageDisplay2.classList.add('image-display-active');
+      };
+
+      fileReader.readAsDataURL(file);
+
+      const fileLabel = document.getElementById('file-label');
+  
+      if (bannerInput.files.length > 0) {
+        fileLabel.textContent = bannerInput.files[0].name;
+      } else {
+        fileLabel.textContent = 'Upload File';
+      }
+    });
+
+    imageDisplay2.addEventListener('dragover', function(event) {
+      event.preventDefault();
+      imageDisplay2.classList.add('image-display-dragover');
+    });
+
+    imageDisplay2.addEventListener('dragleave', function(event) {
+      event.preventDefault();
+      imageDisplay2.classList.remove('image-display-dragover');
+    });
+
+    imageDisplay2.addEventListener('drop', function(event) {
+      event.preventDefault();
+      imageDisplay2.classList.remove('image-display-dragover');
+
+      const file = event.dataTransfer.files[0];
+      const fileReader = new FileReader();
+
+      fileReader.onload = function(event) {
+        uploadedImage2.src = event.target.result;
+      };
+
+      fileReader.readAsDataURL(file);
+    });
+
+    const addBannerInput = document.getElementById('add-banner');
+    const imageDisplay = document.getElementById('imageDisplay');
+    const uploadedImage = document.getElementById('uploadedImage');
+
+    addBannerInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const fileReader = new FileReader();
+
+      fileReader.onload = function(event) {
+        uploadedImage.src = event.target.result;
+        imageDisplay.classList.add('image-display-active');
+      };
+
+      fileReader.readAsDataURL(file);
+
+      const fileLabel = document.getElementById('file-label-add');
+  
+      if (addBannerInput.files.length > 0) {
+        fileLabel.textContent = addBannerInput.files[0].name;
+      } else {
+        fileLabel.textContent = 'Upload File';
+      }
+    });
+
+    imageDisplay.addEventListener('dragover', function(event) {
+      event.preventDefault();
+      imageDisplay.classList.add('image-display-dragover');
+    });
+
+    imageDisplay.addEventListener('dragleave', function(event) {
+      event.preventDefault();
+      imageDisplay.classList.remove('image-display-dragover');
+    });
+
+    imageDisplay.addEventListener('drop', function(event) {
+      event.preventDefault();
+      imageDisplay.classList.remove('image-display-dragover');
+
+      const file = event.dataTransfer.files[0];
+      const fileReader = new FileReader();
+
+      fileReader.onload = function(event) {
+        uploadedImage.src = event.target.result;
+      };
+
+      fileReader.readAsDataURL(file);
+    });
+
+    const popup = document.getElementById('popup');
+    const cancel = document.getElementById('cancel');
+
+    cancel.addEventListener('click',(event)=>{
+      popup.classList.toggle('show');
+    });
+
+    const formServices = document.getElementById("services");
+    const formPrice = document.getElementById("price");
+    const formBanner = document.getElementById("banner");
+    const submitButton = document.getElementById('submit');
+
+    const buttonAction = document.querySelectorAll('.edit-action');
+
+    const deleteAction = document.querySelectorAll(".delete-action");
+
+    const addCancel = document.getElementById('add-cancel');
+    const addSubmit = document.getElementById('add-submit');
+
+    const addAction = document.querySelector(".add-button");
+    const addPopup = document.getElementById("popup-add");
+
+    const addFormBranch = document.getElementById("add-service");
+    const addFormPrice = document.getElementById("add-price");
+    const addFormBanner = document.getElementById("add-banner");
+
+    buttonAction.forEach((button)=>{
+      button.addEventListener('click',(event)=>{
+
+        const req = {id_service : event.target.id};
+
+        const init = {
+          method: 'post',
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify(req)
+        }
+
+        fetch('/BaliHalus/getServiceData', init).then((response) => {
+          return response.json(); 
+        }).then((result) => {
+          if (result !== 'failed') {
+            const { service, banner, price } = result[0];
+  
+            formServices.value = service;
+            uploadedImage2.src = '/baliHalus/banner-image?services='+banner;
+            formPrice.value = price;
+
+          } else {
+            Swal.fire({
+              title: 'Failed',
+              text: "Failed to get Service's detail",
+              icon: 'error',
+              background: "#f9faf4",
+              color: '#1b2e1a',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Ok !'
+            });
+          }
+        }).catch((error) => {
+          console.error('Error:', error);
+          
+        });
+
+        popup.classList.toggle('show');
+
+        submitButton.addEventListener('click', (event)=>{
+          Swal.fire({
+            title: 'Are you sure ?',
+            text: "Make sure your data is right!",
+            icon: 'warning',
+            background: "#f9faf4",
+            color: '#1b2e1a',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes !'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const formData = new FormData();
+              formData.append("id_service", req.id_service);
+              formData.append("service", formServices.value);
+              formData.append("price", formPrice.value);
+              formData.append("image", formBanner.files[0]);
+      
+              const init = {
+                method: 'post',
+                body: formData
+              };
+    
+              fetch('/BaliHalus/editServiceData', init).then((response)=>{
+                return response.text();
+              }).then((resultText)=>{
+                if (resultText == 'ok'){
+                  Swal.fire({
+                    title: 'Success',
+                    icon: 'success',
+                    color: '#1b2e1a',
+                    text: `User's data edited successfully`,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true
+                  }).then(()=>{
+                    location.href='/BaliHalus/admin/services';
+                  });
+                } else if (resultText != 'ok'){
+                  Swal.fire({
+                    title: 'Failed',
+                    text: resultText,
+                    icon: 'error',
+                    background: "#f9faf4",
+                    color: '#1b2e1a',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ok !'
+                  });
+                } else {
+                  Swal.fire({
+                    title: 'Failed',
+                    text: "Please try again or contact admin!",
+                    icon: 'error',
+                    background: "#f9faf4",
+                    color: '#1b2e1a',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ok !'
+                  });
+                };
+              });
+            }
+          });
+        }); 
+      });
+    });
+
+    deleteAction.forEach((button)=>{
+      button.addEventListener("click",(event)=>{
+
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Are you sure you want to delete this data ?",
+          icon: 'warning',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete !'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const req = {id_service: event.target.id};
+  
+            const init = {
+              method: 'post',
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(req)
+            };
+  
+            fetch('/BaliHalus/deleteServiceData', init).then((response)=>{
+              return response.text();
+            }).then((resultText)=>{
+              if (resultText == 'ok'){
+                Swal.fire({
+                  title: 'Success',
+                  icon: 'success',
+                  color: '#1b2e1a',
+                  text: `Service's data deleted successfully`,
+                  showConfirmButton: false,
+                  timer: 1000,
+                  timerProgressBar: true
+                }).then(()=>{
+                  location.href='/BaliHalus/admin/services';
+                });
+              } else if (resultText != 'ok'){
+                Swal.fire({
+                  title: 'Failed',
+                  text: resultText,
+                  icon: 'error',
+                  background: "#f9faf4",
+                  color: '#1b2e1a',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Ok !'
+                });
+              } else {
+                Swal.fire({
+                  title: 'Failed',
+                  text: "Please try again or contact admin!",
+                  icon: 'error',
+                  background: "#f9faf4",
+                  color: '#1b2e1a',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Ok !'
+                });
+              };
+            });
+          }
+        });
+      });
+    });
+
+    addAction.addEventListener('click', (event) => {
+      addFormBranch.value = "";
+      addPopup.classList.toggle('show');
+    
+      addSubmit.addEventListener('click', (event) => {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Are you sure you want to add this data ?",
+          icon: 'warning',
+          background: "#f9faf4",
+          color: '#1b2e1a',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, add !'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const formData = new FormData();
+            formData.append("service", addFormBranch.value);
+            formData.append("price", addFormPrice.value);
+            formData.append("image", addFormBanner.files[0]);
+    
+            const init = {
+              method: 'post',
+              body: formData
+            };
+    
+            fetch('/baliHalus/addServiceData', init).then((response) => {
+              return response.text();
+            }).then((resultText) => {
+              if (resultText == 'ok') {
+                Swal.fire({
+                  title: 'Success',
+                  icon: 'success',
+                  color: '#1b2e1a',
+                  text: `Service's data added successfully`,
+                  showConfirmButton: false,
+                  timer: 1000,
+                  timerProgressBar: true
+                }).then(() => {
+                  location.href = '/BaliHalus/admin/services';
+                });
+              } else if (resultText != 'ok') {
+                Swal.fire({
+                  title: 'Failed',
+                  text: resultText,
+                  icon: 'error',
+                  background: "#f9faf4",
+                  color: '#1b2e1a',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Ok !'
+                });
+              } else {
+                Swal.fire({
+                  title: 'Failed',
+                  text: "Please try again or contact admin!",
+                  icon: 'error',
+                  background: "#f9faf4",
+                  color: '#1b2e1a',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Ok !'
+                });
+              };
+            });
+    
+            addPopup.classList.toggle('show');
+    
+            Swal.fire({
+              title: 'Saved !',
+              icon: 'success',
+              color: '#1b2e1a',
+              text: 'Data successfully Added.',
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true
+            });
+          }
+        });
+      });
+    });
+    
+
+    addCancel.addEventListener('click', (event)=>{
+      addPopup.classList.toggle('show');
+    });
+  }
+
+  assignButton();
+</script>
