@@ -68,7 +68,50 @@
             }).then(()=>{
               location.href='/BaliHalus/';
             });
-          } else if (resultText != 'ok'){
+          } else if (resultText == 'Admin'){
+            Swal.fire({
+              title: 'You are an admin !',
+              text: "Do you want to go to admin page ?",
+              icon: 'question',
+              background: "#f9faf4",
+              color: '#1b2e1a',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, admin page !',
+              cancelButtonText: "No, user page !"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire({
+                  title: 'Directing',
+                  icon: 'success',
+                  color: '#1b2e1a',
+                  text: 'Directing to admin page.',
+                  showConfirmButton: false,
+                  showCancelButton: true,
+                  cancelButtonText: "Cancel",
+                  cancelButtonColor: "#d33",
+                  timer: 3000,
+                  timerProgressBar: true
+                }).then((result)=>{
+                  if(result.dismiss === Swal.DismissReason.cancel){
+                    Swal.fire({
+                      title: 'Cancelled',
+                      icon: 'success',
+                      color: '#1b2e1a',
+                      text: 'Directing Cancelled.',
+                      showConfirmButton: false,
+                      timer: 1500,
+                      timerProgressBar: true
+                    })
+                  }
+                  else{
+                    location.href="/baliHalus/admin";
+                  }
+                });
+              }
+            });
+          } else {
             Swal.fire({
               title: 'Failed',
               text: resultText,
@@ -80,105 +123,7 @@
               cancelButtonColor: '#d33',
               confirmButtonText: 'Ok !'
             });
-          } else {
-            Swal.fire({
-              title: 'Failed',
-              text: "Please try again or contact admin!",
-              icon: 'error',
-              background: "#f9faf4",
-              color: '#1b2e1a',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Ok !'
-            });
           }
-        });
-      }
-      else if(validation == "admin"){
-        Swal.fire({
-          title: 'You are an admin !',
-          text: "Do you want to go to admin page ?",
-          icon: 'question',
-          background: "#f9faf4",
-          color: '#1b2e1a',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, admin page !',
-          cancelButtonText: "No, user page !"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: 'Directing',
-              icon: 'success',
-              color: '#1b2e1a',
-              text: 'Directing to admin page.',
-              showConfirmButton: false,
-              showCancelButton: true,
-              cancelButtonText: "Cancel",
-              cancelButtonColor: "#d33",
-              timer: 3000,
-              timerProgressBar: true
-            }).then((result)=>{
-              if(result.dismiss === Swal.DismissReason.cancel){
-                Swal.fire({
-                  title: 'Cancelled',
-                  icon: 'success',
-                  color: '#1b2e1a',
-                  text: 'Directing Cancelled.',
-                  showConfirmButton: false,
-                  timer: 1500,
-                  timerProgressBar: true
-                })
-              }
-              else{
-                location.href="/baliHalus/admin";
-              }
-            });
-          }
-          else{
-            Swal.fire({
-              title: 'Directing',
-              icon: 'success',
-              color: '#1b2e1a',
-              text: 'Directing to user page.',
-              showConfirmButton: false,
-              showCancelButton: true,
-              cancelButtonText: "Cancel",
-              cancelButtonColor: "#d33",
-              timer: 3000,
-              timerProgressBar: true
-            }).then((result)=>{
-              if(result.dismiss === Swal.DismissReason.cancel){
-                Swal.fire({
-                  title: 'Cancelled',
-                  icon: 'success',
-                  color: '#1b2e1a',
-                  text: 'Directing Cancelled.',
-                  showConfirmButton: false,
-                  timer: 1500,
-                  timerProgressBar: true
-                })
-              }
-              else{
-                location.href="/baliHalus/signed";
-              }
-            });
-          }
-        });
-      }
-      else{
-        Swal.fire({
-          title: 'Check Your Data',
-          text: validation,
-          icon: 'error',
-          background: "#f9faf4",
-          color: '#1b2e1a',
-          showConfirmButton: false,
-          showCancelButton: true,
-          cancelButtonColor: '#d33',
-          cancelButtonText: 'Ok'
         });
       }
     });

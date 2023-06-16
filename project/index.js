@@ -303,7 +303,7 @@ function isAdmin(req, res, next){
         } else if (result == ""){
           res.send('Please check your username and password !');
         } else if (result != "") {
-          if(result[0].group = "admin"){
+          if(result[0].group = "Admin"){
             next();
           }
           else{
@@ -411,7 +411,7 @@ app.get('/baliHalus/' ,(req, res)=>{
 
 app.get('/baliHalus/log-in', (req, res)=>{
   if(req.session.isLoggedin){
-    req.session.role == 'admin' ? res.redirect('/baliHalus/admin/dashboard') : res.redirect('/baliHalus/');
+    req.session.role == 'Admin' ? res.redirect('/baliHalus/admin/dashboard') : res.redirect('/baliHalus/');
   }
   else{
     res.render('login');
@@ -420,7 +420,7 @@ app.get('/baliHalus/log-in', (req, res)=>{
 
 app.get('/baliHalus/sign-in', (req, res)=>{
   if(req.session.isLoggedin){
-    req.session.role == 'admin' ? res.redirect('/baliHalus/admin/dashboard') : res.redirect('/baliHalus/');
+    req.session.role == 'Admin' ? res.redirect('/baliHalus/admin/dashboard') : res.redirect('/baliHalus/');
   }
   else{
     res.render('signin');
@@ -1494,7 +1494,6 @@ app.post('/baliHalus/deleteVariantData', authenticateToken, isAdmin, (req, res)=
     }
   });
 });
-
 
 // ===================================
 // ASSETS REQ - CSS
