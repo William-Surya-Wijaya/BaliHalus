@@ -598,7 +598,7 @@ body{
   border-radius: 9px;
   background-color: transparent;
   top: 80%;
-  left: 80%;
+  left: 75%;
   opacity: 0;
   transition: all;
 }

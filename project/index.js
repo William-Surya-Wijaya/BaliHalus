@@ -437,7 +437,7 @@ app.get('/baliHalus/book', authenticateToken, (req, res) => {
       console.error('Error:', err);
       res.status(500).send('Internal Server Error');
     } else {
-      connection.query("SELECT * FROM services WHERE service='" + req.query.service + "' WHERE deleted_at IS NULL LIMIT 1", (error, results) => {
+      connection.query("SELECT * FROM services WHERE service='" + req.query.service + "' AND deleted_at IS NULL LIMIT 1", (error, results) => {
         if (error) {
           console.error('Error:', error);
           res.status(500).send('Internal Server Error');
@@ -593,7 +593,7 @@ app.get('/baliHalus/admin/dashboard', authenticateToken, isAdmin, async (req, re
 
         for (const idservice of servicesId) {
           const thisRevenue = await new Promise((resolve, reject) => {
-            getServiceRevenue(idservice.id_service, startDate, endDate, (err, thisRevenue) => {
+            getServiceRevenue(idservice.id_service, startDate, startDate, (err, thisRevenue) => {
               if (err) {
                 reject(err);
               } else {
@@ -603,7 +603,7 @@ app.get('/baliHalus/admin/dashboard', authenticateToken, isAdmin, async (req, re
           });
 
           const thisReservations = await new Promise((resolve, reject) => {
-            getServiceReservations(idservice.id_service, startDate, endDate, (err, thisReservations) => {
+            getServiceReservations(idservice.id_service, startDate, startDate, (err, thisReservations) => {
               if (err) {
                 reject(err);
               } else {
@@ -613,7 +613,7 @@ app.get('/baliHalus/admin/dashboard', authenticateToken, isAdmin, async (req, re
           });
 
           const thisPastRevenue = await new Promise((resolve, reject) => {
-            getServiceRevenue(idservice.id_service, pastStartDate, startDate, (err, thisRevenue) => {
+            getServiceRevenue(idservice.id_service, pastStartDate, pastStartDate, (err, thisRevenue) => {
               if (err) {
                 reject(err);
               } else {
@@ -623,7 +623,7 @@ app.get('/baliHalus/admin/dashboard', authenticateToken, isAdmin, async (req, re
           });
 
           const thisPastReservations = await new Promise((resolve, reject) => {
-            getServiceReservations(idservice.id_service, pastStartDate, startDate, (err, thisReservations) => {
+            getServiceReservations(idservice.id_service, pastStartDate, pastStartDate, (err, thisReservations) => {
               if (err) {
                 reject(err);
               } else {

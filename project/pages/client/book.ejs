@@ -163,7 +163,6 @@
     }
     else if(timeParameter == 'PM'){
       let tempttime = parseInt(rawtime.split(" ")[3].split(":")[0]);
-      tempttime += parseInt(12);
       if(tempttime == '24'){
         tempttime = '00';
       }
