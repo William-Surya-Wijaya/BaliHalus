@@ -12,6 +12,12 @@
 
 <link rel="stylesheet" href="/baliHalus/admincss" />
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <html>
   <body>
     <div id="page" class="main-page">
@@ -78,7 +84,7 @@
 
           <div class="content smaller">
 
-            <div class="favorite-container">
+            <div class="favorite-container owl-carousel owl-theme" id="favorite-section">
               <% for (let i = 0; i < servicesReservation.length && i < pastServicesReservation.length; i++) { const row = servicesReservation[i]; const past = pastServicesReservation[i]; const percentage = ((row.revenue - past.revenue) / past.revenue) * 100;%>
                 <div class="favorite">
                   <div class="summary-header">
@@ -113,6 +119,10 @@
 </html>
 
 <script>
+
+  $(document).ready(function(){
+    $('#favorite-section').owlCarousel({loop : true, margin: 20});
+  });
 
   $('#historyTable').DataTable({
     "paging": true,
