@@ -957,7 +957,7 @@ app.post('/baliHalus/login', (req,res)=>{
     if (err) {
       console.error('Error connecting to the database:', err);
     } else {
-      connection.query("SELECT id_user,name FROM users WHERE username='"+username+"' AND password=MD5('"+hashedPassword+"')", (error, result)=>{
+      connection.query("SELECT id_user,name,id_group FROM users WHERE username='"+username+"' AND password=MD5('"+hashedPassword+"')", (error, result)=>{
         if(error){
           res.send('Internal Error - Please Contact Admin');
         } else if (result == ""){
@@ -969,7 +969,7 @@ app.post('/baliHalus/login', (req,res)=>{
           req.session.isLoggedIn = true;
           req.session.idUser = result[0].id_user;
           req.session.name = result[0].name;
-          res.send('ok');
+          res.send(result[0].id_group == 1 ? 'Admin' : 'ok');
         }
         connection.release();
       });
