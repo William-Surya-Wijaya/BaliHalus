@@ -991,71 +991,83 @@ app.post('/baliHalus/reservation', authenticateToken, (req, res) => {
       console.error('Error connecting to the database:', err);
       res.send("Internal Error - Please Contact Admin !");
     } else {
-      connection.query("INSERT INTO transactions_mst (`id_branch`, `id_user`, `id_service`, `reservation_time`) VALUES ('" + branch + "', '" + req.session.idUser + "', '" + idservice + "', '" + time + "')", (error, result) => {
-        if (error) {
-          console.error('Error inserting into transactions_mst:', error);
+      connection.query("SELECT COUNT(*) as count FROM transactions_mst WHERE id_branch='"+branch+"' AND id_user='"+req.session.idUser+"' AND id_service='"+idservice+"' AND reservation_time='"+time+"'", (error, countTrans)=>{
+        if (err) {
+          console.error('Error connecting to the database:', err);
           res.send("Internal Error - Please Contact Admin !");
-        } else if (result === false) {
-          res.send('Cant book your reservation - Please Contact Admin !');
         } else {
-          connection.query("SELECT id_trans FROM transactions_mst WHERE `id_branch`='" + branch + "' AND `id_user`='" + req.session.idUser + "' AND `id_service`='" + idservice + "' AND `reservation_time`='" + time + "' LIMIT 1", (err, results) => {
-            if (err) {
-              console.error('Error selecting id_trans:', err);
-              res.send('Internal Error - Please Contact Admin !');
-            } else if (results === false) {
-              res.send('Cant book your reservation - Please Contact Admin !');
-            } else {
-              const date = new Date(time);
-              const year = date.getFullYear().toString().slice(-2);
-              const month = (date.getMonth() + 1).toString().padStart(2, '0');
-              const day = date.getDate().toString().padStart(2, '0');
-              const resultTime = year + month + day;
-              
-              connection.query("SELECT trans_num FROM transactions_mst WHERE trans_num LIKE '%BL"+resultTime+"%' ORDER BY id_trans DESC LIMIT 1", (err, numResult) => {
-                let transNum = "";
-
-                if(numResult == false || numResult == ""){
-                  transNum += "BL"+resultTime+("1").toString().padStart(3, '0');
-                } else{
-                  transNum += "BL"+resultTime+(parseInt((numResult[0].trans_num).slice(-3))+1).toString().padStart(3, '0');
-                }
-
-                connection.query("UPDATE transactions_mst SET trans_num='"+transNum+"' WHERE id_trans='"+results[0].id_trans+"'", (err, insResult) =>{
-                  if(err){
-                    console.error(err);
+          if(countTrans[0].count > 0){
+            res.send('A reservation for the same time already exists. !');
+            connection.release();
+          } else {
+            connection.query("INSERT INTO transactions_mst (`id_branch`, `id_user`, `id_service`, `reservation_time`) VALUES ('" + branch + "', '" + req.session.idUser + "', '" + idservice + "', '" + time + "')", (error, result) => {
+              if (error) {
+                console.error('Error inserting into transactions_mst:', error);
+                res.send("Internal Error - Please Contact Admin !");
+              } else if (result === false) {
+                res.send('Cant book your reservation - Please Contact Admin !');
+              } else {
+                connection.query("SELECT id_trans FROM transactions_mst WHERE `id_branch`='" + branch + "' AND `id_user`='" + req.session.idUser + "' AND `id_service`='" + idservice + "' AND `reservation_time`='" + time + "' LIMIT 1", (err, results) => {
+                  if (err) {
+                    console.error('Error selecting id_trans:', err);
+                    res.send('Internal Error - Please Contact Admin !');
+                  } else if (results === false) {
+                    res.send('Cant book your reservation - Please Contact Admin !');
                   } else {
-                    const promises = [];
-                    for (let i = 0; i < variant.split(' | ').length - 1; i++) {
-                      const query = "INSERT INTO transactions_det (`id_parent`, `id_variant_det`) VALUES ('" + results[0].id_trans + "','" + variant.split(' | ')[i].split(' : ')[1] + "')";
-                      const promise = new Promise((resolve, reject) => {
-                        connection.query(query, (error, result) => {
-                          if (error) {
-                            console.error('Error inserting into transactions_det:', error);
-                            reject(error);
-                          } else if (result === false) {
-                            reject('Cant book your reservation - Please Contact Admin !');
-                          } else {
-                            resolve();
+                    const date = new Date(time);
+                    const year = date.getFullYear().toString().slice(-2);
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const day = date.getDate().toString().padStart(2, '0');
+                    const resultTime = year + month + day;
+                    
+                    connection.query("SELECT trans_num FROM transactions_mst WHERE trans_num LIKE '%BL"+resultTime+"%' ORDER BY id_trans DESC LIMIT 1", (err, numResult) => {
+                      let transNum = "";
+      
+                      if(numResult == false || numResult == ""){
+                        transNum += "BL"+resultTime+("1").toString().padStart(3, '0');
+                      } else{
+                        transNum += "BL"+resultTime+(parseInt((numResult[0].trans_num).slice(-3))+1).toString().padStart(3, '0');
+                      }
+      
+                      connection.query("UPDATE transactions_mst SET trans_num='"+transNum+"' WHERE id_trans='"+results[0].id_trans+"'", (err, insResult) =>{
+                        if(err){
+                          console.error(err);
+                        } else {
+                          const promises = [];
+                          for (let i = 0; i < variant.split(' | ').length - 1; i++) {
+                            const query = "INSERT INTO transactions_det (`id_parent`, `id_variant_det`) VALUES ('" + results[0].id_trans + "','" + variant.split(' | ')[i].split(' : ')[1] + "')";
+                            const promise = new Promise((resolve, reject) => {
+                              connection.query(query, (error, result) => {
+                                if (error) {
+                                  console.error('Error inserting into transactions_det:', error);
+                                  reject(error);
+                                } else if (result === false) {
+                                  reject('Cant book your reservation - Please Contact Admin !');
+                                } else {
+                                  resolve();
+                                }
+                              });
+                            });
+                            promises.push(promise);
                           }
-                        });
+      
+                          Promise.all(promises)
+                            .then(() => res.send('ok'))
+                            .catch((error) => {
+                              console.error('Error in Promise.all:', error);
+                              res.send('Internal Error - Please Contact Admin !');
+                            })
+                            .finally(() => {
+                              connection.release();
+                          });
+                        }
                       });
-                      promises.push(promise);
-                    }
-
-                    Promise.all(promises)
-                      .then(() => res.send('ok'))
-                      .catch((error) => {
-                        console.error('Error in Promise.all:', error);
-                        res.send('Internal Error - Please Contact Admin !');
-                      })
-                      .finally(() => {
-                        connection.release();
                     });
                   }
                 });
-              });
-            }
-          });
+              }
+            });
+          }
         }
       });
     }
@@ -1445,7 +1457,7 @@ app.post('/baliHalus/editVariantData', authenticateToken, isAdmin, (req, res)=>{
           console.error('Error executing query:', error);
           res.send('failed');
         } else {
-          console.log("UPDATE variant_det SET id_parent='"+req.body.id_parent+"', variant_det='"+req.body.variant_det+"' WHERE id_variant_det='"+req.body.id_variant_det+"'");
+
           res.send('ok');
         }
 
