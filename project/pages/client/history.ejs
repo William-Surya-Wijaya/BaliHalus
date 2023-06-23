@@ -103,14 +103,14 @@
                   </tfoot>
                 </table>
                 <div class="pagination-container">
-                  <%- parseInt(curr) == 0 ? `<input class="pagination-item disabled" type="button" value="Previous"/ >` : `<input id="0" class="pagination-item pagination-dir" type="button" value="Previous"/ >` %>
+                  <%- parseInt(curr) == 0 ? `<input class="pagination-item disabled" type="button" value="Previous"/ >` : `<input id="${parseInt(curr)-1}" class="pagination-item pagination-dir" type="button" value="Previous"/ >` %>
                   
                   <% for(let i = 1; i<=totalpage; i++){ %>
                     <%- i-1 == curr ? `<input class="pagination-item disabled" type="button" value="${i}"/ >` : `<input id="${i-1}" class="pagination-item pagination-dir" type="button" value="${i}"/ >` %>
 
                   <% } %>
 
-                  <%- parseInt(curr)+1 == parseInt(totalpage) ? `<input class="pagination-item disabled" type="button" value="Next"/ >` : `<input class="pagination-item pagination-dir" id="${curr+1}" type="button" value="Next"/ >` %>
+                  <%- parseInt(curr)+1 == parseInt(totalpage) ? `<input class="pagination-item disabled" type="button" value="Next"/ >` : `<input class="pagination-item pagination-dir" id="${parseInt(curr)+1}" type="button" value="Next"/ >` %>
                 </div>
               </div>
             </div>

@@ -921,7 +921,7 @@ app.post('/baliHalus/registration', (req, res) => {
         if (results[0].totalRow > 0) {
           res.send('Username has been taken !');
         } else {
-          connection.query("INSERT INTO users (`id_group`,`username`,`name`,`gender`,`password`,`phone`,`email`) VALUES (1,'"+username+"','"+name+"','"+gender+"',MD5('"+hashedPassword+"'),'"+phone+"','"+email+"')", (error, results) => {
+          connection.query("INSERT INTO users (`id_group`,`username`,`name`,`gender`,`password`,`phone`,`email`) VALUES (2,'"+username+"','"+name+"','"+gender+"',MD5('"+hashedPassword+"'),'"+phone+"','"+email+"')", (error, results) => {
             if (error) {
               res.send('Internal Error - Please Contact Admin');
             } else {
