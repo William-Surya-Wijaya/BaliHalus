@@ -120,6 +120,45 @@ function isAdmin(req, res, next){
   });
 }
 
+function getTransactionMaster(userId, dateStart, dateEnd, page, callback){
+  connectionSQL.getConnection((err, connection) => {
+    let limit = "";
+    if(parseInt(page) != NaN && page != undefined && page != null){
+      limit += " LIMIT "+(page*8)+",8";
+    }
+    else{
+      limit += " LIMIT 0,8";
+    }
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      callback(err, null);
+    } else {
+      if((dateStart != undefined && dateStart != null && dateStart != "") && (dateEnd != undefined && dateEnd != null && dateEnd != "")){
+        connection.query("SELECT a.id_trans AS id_trans, a.trans_num AS trans_num, a.`reservation_time` AS reservation_time, c.`service` AS service, f.`branch` AS branch, f.`location` AS location, c.price AS price FROM transactions_mst a LEFT JOIN services c ON a.`id_service`=c.`id_service` LEFT JOIN branch f ON a.`id_branch`=f.`id_branch` WHERE a.`deleted_at` IS NULL AND a.id_user='"+userId+"' AND a.reservation_time BETWEEN '"+dateStart+" 00:00:00' AND '"+dateEnd+" 23:59:59' "+limit+"", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, results);
+          }
+
+          connection.release();
+        });
+      }
+      else{
+        connection.query("SELECT a.id_trans AS id_trans, a.trans_num AS trans_num, a.`reservation_time` AS reservation_time, c.`service` AS service, f.`branch` AS branch, f.`location` AS location, c.price AS price FROM transactions_mst a LEFT JOIN services c ON a.`id_service`=c.`id_service` LEFT JOIN branch f ON a.`id_branch`=f.`id_branch` WHERE a.`deleted_at` IS NULL AND a.id_user='"+userId+"' "+limit+"", (error, results) => {
+          if (error) {
+            connection.release();
+            callback(error, null);
+          } else {
+            connection.release();
+            callback(null, results);
+          }
+        });
+      }
+    }
+  });
+}
+
 // ===================================
 // PAGE REQ
 // ===================================
