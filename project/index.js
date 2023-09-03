@@ -159,6 +159,70 @@ function getTransactionMaster(userId, dateStart, dateEnd, page, callback){
   });
 }
 
+function getServiceRevenue(serviceId, dateStart, dateEnd, callback){
+  connectionSQL.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      callback(err, null);
+    } else {
+      if((dateStart != undefined && dateStart != null && dateStart != "") && (dateEnd != undefined && dateEnd != null && dateEnd != "")){
+        connection.query("SELECT s.service AS service, s.price*COUNT(t.id_service) AS totalRevenue FROM services s LEFT JOIN transactions_mst t ON s.id_service = t.id_service AND t.id_service = '"+serviceId+"' AND t.reservation_time BETWEEN '"+dateStart+" 00:00:00' AND '"+dateEnd+" 23:59:59' WHERE s.id_service = '"+serviceId+"' AND s.deleted_at IS NULL AND t.deleted_at IS NULL GROUP BY service", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, results);
+          }
+
+          connection.release();
+        });
+      }
+      else{
+        connection.query("SELECT s.service AS service, s.price*COUNT(t.id_service) AS totalRevenue FROM services s LEFT JOIN transactions_mst t ON s.id_service = t.id_service AND t.id_service = '"+serviceId+"' WHERE s.id_service = '"+serviceId+"' AND s.deleted_at IS NULL AND t.deleted_at IS NULL GROUP BY service", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, results);
+          }
+
+          connection.release();
+        });
+      }
+    }
+  });
+}
+
+function getServiceReservations(serviceId, dateStart, dateEnd, callback){
+  connectionSQL.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      callback(err, null);
+    } else {
+      if((dateStart != undefined && dateStart != null && dateStart != "") && (dateEnd != undefined && dateEnd != null && dateEnd != "")){
+        connection.query("SELECT s.banner AS banner, s.price AS price, s.id_service AS id_service, s.service AS service, COUNT(t.id_service) AS totalRevenue FROM services s LEFT JOIN transactions_mst t ON s.id_service = t.id_service AND t.id_service = '"+serviceId+"' AND t.reservation_time BETWEEN '"+dateStart+" 00:00:00' AND '"+dateEnd+" 23:59:59' WHERE s.id_service = '"+serviceId+"' AND s.deleted_at IS NULL AND t.deleted_at IS NULL GROUP BY service", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, results);
+          }
+
+          connection.release();
+        });
+      }
+      else{
+        connection.query("SELECT s.banner AS banner, s.price AS price, s.id_service AS id_service, s.service AS service, COUNT(t.id_service) AS totalRevenue FROM services s LEFT JOIN transactions_mst t ON s.id_service = t.id_service AND t.id_service = '"+serviceId+"' WHERE s.id_service = '"+serviceId+"' AND s.deleted_at IS NULL AND t.deleted_at IS NULL GROUP BY service", (error, results) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, results);
+          }
+
+          connection.release();
+        });
+      }
+    }
+  });
+}
+
 // ===================================
 // PAGE REQ
 // ===================================
